@@ -1,0 +1,12 @@
+export type SoundType =
+    | 'master'
+    | 'music'
+    | 'record'
+    | 'weather'
+    | 'block'
+    | 'hostile'
+    | 'neutral'
+    | 'player'
+    | 'ambient'
+    | 'voice'
+    | '*'

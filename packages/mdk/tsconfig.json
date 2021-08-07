@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.root.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "mdk-core": ["../mdk-core/src"],
+      "mdk-command": ["../mdk-command/src"],
+      "@dev/*": ["../mdk-core/src/__dev__/*"],
+      "@plugins/*": ["../mdk-core/src/plugins/*"],
+      "@core/*": ["../mdk-core/src/core/*"],
+      "@utils/*": ["../mdk-core/src/utils/*"],
+      "@tools/*": ["../mdk-core/src/tools/*"],
+      "@typings/*": ["../mdk-core/src/typings/*"],
+      "@model/*": ["../mdk-core/src/model/*"],
+      "@lib/*": ["../mdk-core/src/lib/*"],
+      "@/*": ["../mdk-core/src/*", "../mdk-command/src/*"],
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true },
+    ]
+  },
+  "include": [
+    "./src/**/*",
+    "typings/**/*.d.ts"
+  ],
+}

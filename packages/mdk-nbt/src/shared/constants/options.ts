@@ -1,0 +1,5 @@
+export type StoreOption = 'result' | 'success'
+export type BossbarOption = 'value' | 'max'
+export type AnchorOption = 'eyes' | 'feet'
+export type LocationModifier = '~' | '^' | ''
+export type RotationModifier = '~' | ''

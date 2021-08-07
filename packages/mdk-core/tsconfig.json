@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.root.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@dev/*": ["./src/__dev__/*"],
+      "@plugins/*": ["./src/plugins/*"],
+      "@core/*": ["./src/core/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@tools/*": ["./src/tools/*"],
+      "@typings/*": ["./src/typings/*"],
+      "@model/*": ["src/model/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@/*": ["./src/*"],
+    },
+  },
+  "include": [
+    "src/**/*",
+    "typings/**/*.d.ts"
+  ]
+}

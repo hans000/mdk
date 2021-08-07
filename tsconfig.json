@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.root.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "mdk-core": ["../mdk-core/src"],
+      "mdk-command": ["../mdk-command/src"],
+      "@class/*": ["./packages/mdk-command/src/class/*"],
+      "@function/*": ["./packages/mdk-command/src/function/*"],
+      "@dev/*": ["./packages/mdk-core/src/__dev__/*"],
+      "@plugins/*": ["./packages/mdk-core/src/plugins/*"],
+      "@core/*": ["./packages/mdk-core/src/core/*"],
+      "@utils/*": ["./packages/mdk-core/src/utils/*"],
+      "@tools/*": ["./packages/mdk-core/src/tools/*"],
+      "@typings/*": ["./packages/mdk-core/src/typings/*"],
+      "@model/*": ["./packages/mdk-core/src/model/*"],
+      "@lib/*": ["./packages/mdk-core/src/lib/*"],
+      "@/*": ["./packages/mdk-command/src/*", "./packages/mdk-core/src/*"],
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths", "exclude": [ "**/mdk-core/**", "**/mdk-command/**" ] },
+      { "transform": "typescript-transform-paths", "exclude": [ "**/mdk-core/**", "**/mdk-command/**" ], "afterDeclarations": true },
+    ]
+  }
+}

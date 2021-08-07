@@ -1,0 +1,35 @@
+{
+  "name": "mdkjs",
+  "version": "0.17.0-alpha",
+  "main": "./dist/mdk.js",
+  "types": "./dist/mdk/src/index.d.ts",
+  "description": "mdk is a framework for developing Datapacks for Minecraft. It uses the typescript language.",
+  "keywords": [
+    "datapack",
+    "mcfunction",
+    "minecraft",
+    "mc"
+  ],
+  "file": [
+    "dist/",
+    "package",
+    "readme"
+  ],
+  "author": "hans000",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hans000/mdk"
+  },
+  "bugs": {
+    "url": "https://github.com/hans000/mdk/bug",
+    "email": "haima_kc@163.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf ./dist/**/* && npx ttsc && rimraf ./dist/**/*.js && webpack",
+    "docs": "npx typedoc src/index.ts --out ../../docs"
+  },
+  "devDependencies": {
+    "mdk-nbt": "^0.2.0"
+  }
+}

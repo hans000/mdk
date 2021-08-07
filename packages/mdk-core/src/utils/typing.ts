@@ -1,0 +1,1 @@
+export type ObjectMap<T> = { [prop: string]: T }

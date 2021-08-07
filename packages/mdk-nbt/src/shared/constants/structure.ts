@@ -1,0 +1,19 @@
+export type StructureType =
+    | 'buried_treasure'     /** 埋藏的宝藏 */
+    | 'endcity'             /** 末地城 */
+    | 'fortress'            /** 下界要塞 */
+    | 'mansion'             /** 林地府邸 */
+    | 'mineshaft'           /** 废弃矿井 */
+    | 'monument'            /** 海底神殿 */
+    | 'ocean_ruin'          /** 海底废墟 */
+    | 'shipwreck'           /** 沉船 */
+    | 'stronghold'          /** 要塞 */
+    | 'desert_pyramid'      /** 沙漠神殿 */
+    | 'igloo'               /** 雪屋 */
+    | 'jungle_pyramid'      /** 丛林神庙 */
+    | 'swamp_hut'           /** 女巫小屋 */
+    | 'village'             /** 村庄 */
+    | 'pillager_outpost'    /** 掠夺者前哨站 */
+    | 'nether_fossil'       /** 下界化石 */
+    | 'bastion_remnant'     /** 堡垒遗迹 */
+    | 'ruined_portal'       /** 废弃传送门 */

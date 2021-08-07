@@ -1,0 +1,23 @@
+{
+  "name": "mdk-command",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "hans000 <haima_kc@163.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist/",
+    "package",
+    "readme"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org"
+  },
+  "dependencies": {
+  }
+}
