@@ -1,4 +1,4 @@
-import { rotation, Rotation } from '../../src/lib'
+import { rotation, Rotation } from '../../src'
 
 describe('Rotation', () => {
     test('Rotation类', () => {

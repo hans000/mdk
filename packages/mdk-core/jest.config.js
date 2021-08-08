@@ -8,6 +8,8 @@ module.exports = {
         "__DEV__": true
     },
     moduleNameMapper: {
+        "mdk-core": "<rootDir>/../mdk-command",
+        "mdk-command": "<rootDir>",
         "@dev/(.*)": "<rootDir>/src/__dev__/$1",
         "@plugins/(.*)": "<rootDir>/src/plugins/$1",
         "@core/(.*)": "<rootDir>/src/core/$1",

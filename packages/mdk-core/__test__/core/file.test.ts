@@ -1,8 +1,8 @@
-import mdk from '../../src'
+import { File } from '../../src'
 
 describe('File测试', () => {
     test('File最简实例化测试', () => {
-        const file = new mdk.File('foo')
+        const file = new File('foo')
         file.add('say 1')
         file.addComment('this is a comment')
 

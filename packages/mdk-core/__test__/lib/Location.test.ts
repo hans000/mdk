@@ -1,4 +1,4 @@
-import { Location, location } from '../../src/lib'
+import { Location, location } from '../../src'
 
 describe('Location', () => {
     test('Location测试', () => {

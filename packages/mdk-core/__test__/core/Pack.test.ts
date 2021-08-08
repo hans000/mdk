@@ -1,8 +1,8 @@
-import mdk from '../../src'
+import { Pack } from '../../src'
 
 describe('Pack测试', () => {
     test('Pack基本测试', () => {
-        const pack = new mdk.Pack({
+        const pack = new Pack({
             scope: false,
             packname: 'packname',
             description: 'pack description',

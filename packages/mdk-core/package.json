@@ -18,6 +18,9 @@
   "publishConfig": {
     "registry": "https://registry.npm.taobao.org"
   },
+  "scripts": {
+    "jest": "npx jest"
+  },
   "dependencies": {
   }
 }

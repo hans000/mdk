@@ -1,4 +1,4 @@
-import { Area, Location, area, location } from '../../src/lib'
+import { Area, Location, area, location } from '../../src'
 
 describe('Area', () => {
     test('Area类', () => {

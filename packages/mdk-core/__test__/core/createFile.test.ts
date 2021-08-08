@@ -1,12 +1,12 @@
-import mdk from '../../src'
+import { createFile } from '../../src'
 
 describe('createFile测试', () => {
     test('createFile测试', () => {
-        const file = mdk.createFile({
+        const file = createFile({
             filename: 'foo',
-            render(context) {
-                context.add('say 1')
-                context.addComment('this is a comment')
+            render(ctx) {
+                ctx.add('say 1')
+                ctx.addComment('this is a comment')
             }
         })
         
