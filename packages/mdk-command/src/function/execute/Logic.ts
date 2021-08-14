@@ -1,7 +1,7 @@
 import { formatMCParams, formatScoreRange } from 'mdk-core';
 import { Selector } from 'mdk-core';
 import { ScoreRange } from 'mdk-nbt';
-import { ArgumentExpection } from '@/expection';
+import { ArgumentExpection } from 'mdk-core/src/expection';
 import Execute from './Execute';
 
 export interface IBlockState {

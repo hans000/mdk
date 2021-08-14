@@ -2,10 +2,9 @@ import { DataObject } from '../../createFile';
 import { FieldExpection } from '../../../expection';
 import { int, float, EnchantmentId, RangeObject } from 'mdk-nbt';
 import path from '@utils/path';
-import { ObjectMap } from '@utils/typing'; // TODO chore
 import { FileAbstract, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { LiteralFuncType } from '@typings/tool';
+import { LiteralFuncType, ObjectMap } from '@typings/tool';
 
 type EntityTargetType = 'this' | 'killer' | 'killer_player'
 export interface IPredicateItem {

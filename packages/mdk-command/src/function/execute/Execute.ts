@@ -1,9 +1,10 @@
 import Logic, { IBlockState } from "./Logic";
-import { ObjectiveItem, Selector } from 'mdk-core';
+import { Selector } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption } from 'mdk-nbt';
 import StoreLogic from "./StoreLogic";
 import { CommandText } from "mdk-core"
 import { ContainerExpection } from "mdk-core/src/expection";
+import { Objective } from "@/core/objective";
 
 export default class Execute extends CommandText {
 
@@ -29,14 +30,14 @@ export default class Execute extends CommandText {
         return new Logic(this).blocks()
     }
     public ifScore(target: Selector, objective: string, source: string, srouceObjective: string, operation: string) {
-        if (! ObjectiveItem.query(objective)) {
+        if (! Objective.query(objective)) {
             throw ContainerExpection(`${objective} is not exist in objectives`)
         }
         this.add('if')
         return new Logic(this).score(target.toString(), objective, source, srouceObjective, operation)
     }
     public unlessScore(target: Selector, objective: string, source: string, srouceObjective: string, operation: string) {
-        if (! ObjectiveItem.query(objective)) {
+        if (! Objective.query(objective)) {
             throw ContainerExpection(`${objective} is not exist in objectives`)
         }
         this.add('unless')

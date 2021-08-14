@@ -6,10 +6,11 @@ import { FillMode } from '../function/fill'
 import { ParticleIdType, VisibleMode } from '../function/particle'
 import { SaveType } from '../function/save'
 import { SetblockMode } from '../function/setblock'
-import { Criteria, Selector, useFile, JText, File } from 'mdk-core'
+import { Selector, useFile, JText, File } from 'mdk-core'
 import { BiomeId, double, EnchantmentId, Entity, float, GameMode, int, SoundType, StructureType } from 'mdk-nbt'
 import { BlockItemId } from 'mdk-nbt/dist/item/__'
 import * as _ from '../function/index'
+import { Objective } from '@/core/objective'
 
 export function useCommand(target = new Selector()) {
     const file = useFile() as File
@@ -18,8 +19,8 @@ export function useCommand(target = new Selector()) {
         return new Tag(file, target)
     }
     
-    function scoreboard(objective: string, criterion?: Criteria, displayName?: string) {
-        return new Scoreboard(file, objective, criterion, displayName)
+    function scoreboard(objective: Objective) {
+        return new Scoreboard(file, objective)
     }
 
     function clear(item: string, maxCount: int) {

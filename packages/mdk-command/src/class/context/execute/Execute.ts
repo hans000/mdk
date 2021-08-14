@@ -1,10 +1,8 @@
-import { File, Selector } from 'mdk-core';
+import { File, OperationType } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption } from 'mdk-nbt';
 import { Logic, IBlockState } from "./Logic";
 import { StoreLogic } from "./StoreLogic";
 import { CommandAbstract } from "mdk-core";
-import { OperationType } from "../../selector/execute";
-import { useCommand } from '@/hooks';
 
 export class Execute extends CommandAbstract {
 

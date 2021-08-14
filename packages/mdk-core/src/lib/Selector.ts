@@ -3,12 +3,8 @@ import { emit } from "@core/index";
 import { Location } from "@lib/index";
 import { ScoreRange, GameMode, EntityId, Entity } from 'mdk-nbt';
 import { ContainerExpection } from '../expection';
-import { ObjectiveItem } from "./ObjectiveItem";
-
-type SingleOrArrayResult<T> = T | T[]
-interface MapScoreRange {
-    [name: string]: ScoreRange
-}
+import { SingleArrayResult } from "@typings/tool";
+import { Objective } from "mdk-command/src";
 
 export function selector(): Selector
 export function selector(name: string): Selector
@@ -22,7 +18,7 @@ export function selector(selector?: unknown) {
  */
 export class Selector {
     #exact = false;
-    #objective: ObjectiveItem;
+    #objective: Objective;
     #literal = false;
     readonly #params: ISelector;
 
@@ -45,10 +41,8 @@ export class Selector {
 
     public get props() { return this.#params }
 
-    // TODO 待开发event
-
     //#region 选择器格式化
-    private arrayHandle<T>(select: SingleOrArrayResult<T>, key: string) {
+    private arrayHandle<T>(select: SingleArrayResult<T>, key: string) {
         if (Array.isArray(select)) {
             // 过滤重复项并字符串拼接
             return Array.from(new Set(select)).reduce((s, v) => s += `${key}=${v},`, '').slice(0, -1)
@@ -58,7 +52,7 @@ export class Selector {
 
     private rangeHandle(range: ScoreRange, key: string) { return `${key}=${formatScoreRange(range)}` }
 
-    private mapRangeHandle(map: MapScoreRange, key: string) {
+    private mapRangeHandle(map: Record<string, ScoreRange>, key: string) {
         const result = Object.keys(map).reduce((s, k) => s += `${k}=${formatScoreRange(map[k])},`, '').slice(0, -1)
         return `${key}={${result}}`
     }
@@ -97,11 +91,11 @@ export class Selector {
      * 选择一个objective
      */
     public select(objective: string) {
-        if (! ObjectiveItem.query(objective)) {
+        if (! Objective.query(objective)) {
             throw ContainerExpection(`${objective} is not exist in objectives`)
         }
 
-        this.#objective = ObjectiveItem.query(objective)
+        this.#objective = Objective.query(objective)
         return this.objective
     }
 
@@ -136,7 +130,7 @@ export interface ISelector {
     /** 体积尺寸 */
     range?: Range;
     /** 顺序 */
-    sort?: SingleOrArrayResult<SortType>;
+    sort?: SingleArrayResult<SortType>;
     /** 数量 */
     limit?: number;
     /** 距离 */
@@ -148,15 +142,15 @@ export interface ISelector {
     /** 水平旋转角度 */
     y_rotation?: ScoreRange;
     /** 记分板标签 */
-    tag?: SingleOrArrayResult<string>;
+    tag?: SingleArrayResult<string>;
     /** 队伍名称 */
-    team?: SingleOrArrayResult<string>;
+    team?: SingleArrayResult<string>;
     /** 游戏模式 */
-    gamemode?: SingleOrArrayResult<GameMode>;
+    gamemode?: SingleArrayResult<GameMode>;
     /** 实体名称 */
-    name?: SingleOrArrayResult<string>;
+    name?: SingleArrayResult<string>;
     /** 实体类型 */
-    type?: SingleOrArrayResult<EntityId>;
+    type?: SingleArrayResult<EntityId>;
     /** 谓词 */
     predicate?: string;
     /** nbt数据标签 */
