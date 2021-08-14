@@ -1,7 +1,6 @@
 export * from './bossbar'
 export * from './data'
 export * from './datapack'
-export * from './difficulty'
 export * from './forceload'
 export * from './gamerule'
 export * from './schedule'
