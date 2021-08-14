@@ -1,10 +1,10 @@
 import { scoreboard } from "@/function"
-import { Criteria, Selector, useFile, OperationType, LiteralType } from "mdk-core/src"
+import { Criteria, Selector, useFile, OperationType, LiteralType, JText } from "mdk-core/src"
 import { ContainerExpection } from "mdk-core/src/expection"
 
 const objectives = new Map<string, Objective>()
 
-type ObjectiveProps = {
+export type ObjectiveProps = {
     name: string
     criterion: Criteria
     displayName?: string
@@ -15,6 +15,38 @@ export class Objective {
     #criterion: Criteria
     #displayName: string
     #selector: Selector
+
+    public static list() {
+        const file = useFile()
+        file.add(scoreboard.objectives.list())
+    }
+
+    public static remove(objective: LiteralType<Objective>) {
+        const name = typeof objective === 'string' ? objective : objective.name 
+        if (! Objective.query(name)) {
+            throw ContainerExpection(`${name} is not exist in objectives`)
+        }
+        const file = useFile()
+        file.add(scoreboard.objectives.remove(name))
+    }
+
+    public static setdisplay(slot: string, objective?: LiteralType<Objective>) {
+        const name = typeof objective === 'string' ? objective : objective.name 
+        if (! Objective.query(name)) {
+            throw ContainerExpection(`${name} is not exist in objectives`)
+        }
+        const file = useFile()
+        file.add(scoreboard.objectives.setdisplay(slot, name))
+    }
+
+    public static modify(objective: LiteralType<Objective>, displayName: LiteralType<JText>) {
+        const name = typeof objective === 'string' ? objective : objective.name 
+        if (! Objective.query(name)) {
+            throw ContainerExpection(`${name} is not exist in objectives`)
+        }
+        const file = useFile()
+        file.add(scoreboard.objectives.modify(name, displayName.toString()))
+    }
 
     /** * 查询积分项 */
     public static query(objective: string) { return objectives.get(objective) }

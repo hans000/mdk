@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
+      "mdk-command": ["../mdk-command"],
       "@dev/*": ["./src/__dev__/*"],
       "@plugins/*": ["./src/plugins/*"],
       "@core/*": ["./src/core/*"],
@@ -14,6 +15,10 @@
       "@lib/*": ["./src/lib/*"],
       "@/*": ["./src/*"],
     },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true },
+    ]
   },
   "include": [
     "src/**/*",

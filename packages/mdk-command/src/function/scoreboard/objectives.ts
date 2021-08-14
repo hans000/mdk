@@ -1,6 +1,4 @@
-import { Objective } from '@/core/objective'
 import { Criteria } from 'mdk-core'
-import { ContainerExpection } from 'mdk-core/src/expection'
 
 export default {
     list,
@@ -25,22 +23,13 @@ function add(objective: string, criterion: Criteria = 'dummy', displayName?: str
 }
 
 function remove(objective: string) {
-    if (! Objective.query(objective)) {
-        throw ContainerExpection(`${objective} is not exist in objectives`)
-    }
     return `scoreboard objectives remove ${objective}`
 }
 
 function setdisplay(slot: string, objective?: string) {
-    if (! Objective.query(objective)) {
-        throw ContainerExpection(`${objective} is not exist in objectives`)
-    }
     return `scoreboard objectives setdisplay ${slot}${objective ? ' ' + objective : ''}`
 }
 
 function modify(objective: string, displayName: string) {
-    if (! Objective.query(objective)) {
-        throw ContainerExpection(`${objective} is not exist in objectives`)
-    }
     return `scoreboard objectives modify ${objective} displayname ${displayName}`
 }

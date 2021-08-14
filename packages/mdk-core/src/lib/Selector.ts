@@ -4,7 +4,7 @@ import { Location } from "@lib/index";
 import { ScoreRange, GameMode, EntityId, Entity } from 'mdk-nbt';
 import { ContainerExpection } from '../expection';
 import { SingleArrayResult } from "@typings/tool";
-import { Objective } from "mdk-command/src";
+import { Objective } from "mdk-command";
 
 export function selector(): Selector
 export function selector(name: string): Selector
