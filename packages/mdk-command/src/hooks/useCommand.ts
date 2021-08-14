@@ -8,7 +8,7 @@ import { SaveType } from '../function/save'
 import { SetblockMode } from '../function/setblock'
 import { Criteria, Selector, useFile, JText, File } from 'mdk-core'
 import { BiomeId, double, EnchantmentId, Entity, float, GameMode, int, SoundType, StructureType } from 'mdk-nbt'
-import { BlockItemId } from '../../../mdk-nbt/dist/item/__'
+import { BlockItemId } from 'mdk-nbt/dist/item/__'
 import * as _ from '../function/index'
 
 export function useCommand(target = new Selector()) {
@@ -67,6 +67,11 @@ export function useCommand(target = new Selector()) {
 
     function kick(reason?: string) {
         file.add(_.kick(target, reason))
+    }
+
+    
+    function kill() {
+        file.add(_.kill(target))
     }
 
     function locate(structure: StructureType) {
@@ -255,6 +260,7 @@ export function useCommand(target = new Selector()) {
         fill,
         gamemode,
         kick,
+        kill,
         locate,
         msg,
         op,

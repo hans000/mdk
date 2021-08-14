@@ -1,9 +1,10 @@
-import { File } from 'mdk-core';
+import { File, Selector } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption } from 'mdk-nbt';
 import { Logic, IBlockState } from "./Logic";
 import { StoreLogic } from "./StoreLogic";
 import { CommandAbstract } from "mdk-core";
 import { OperationType } from "../../selector/execute";
+import { useCommand } from '@/hooks';
 
 export class Execute extends CommandAbstract {
 
@@ -103,7 +104,7 @@ export class Execute extends CommandAbstract {
     }
     public run(cmd: string) {
         this.context.add(`${this.result} run ${cmd}`)
-        // this.result.clear()
+        this.result.clear()
     }
     //#endregion
 }
