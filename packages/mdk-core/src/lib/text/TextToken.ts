@@ -1,3 +1,4 @@
+import { LiteralUnion } from "@typings/tool"
 import { toHump } from "@utils/format"
 import { ColorType } from "mdk-nbt"
 import { ClickEventType } from "./ClickEvent"
@@ -7,10 +8,12 @@ interface TextFunction {
     (text: string): TextTokenType;
 }
 
+type Color = LiteralUnion<ColorType, string>
+
 interface TextTokenType {
     readonly insertion: TextTokenType
     readonly font: (font: string) => TextTokenType
-    readonly color: (color: string) => TextTokenType
+    readonly color: (color: Color) => TextTokenType
     readonly separator: (sep: string) => TextTokenType
 
     readonly darkRed: TextTokenType
@@ -57,7 +60,7 @@ export interface TextToken {
     /** 列表内的参数将为译文中的变量赋值 */
     with?: string[]
     /** 颜色 */
-    color?: ColorType
+    color?: Color
     /** 字体加粗 */
     bold?: boolean
     /** 字体斜体 */
