@@ -1,8 +1,9 @@
-import { File, OperationType } from 'mdk-core';
+import { File, OperationType, Selector } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption } from 'mdk-nbt';
 import { Logic, IBlockState } from "./Logic";
 import { StoreLogic } from "./StoreLogic";
 import { CommandAbstract } from "mdk-core";
+import * as _ from '../../../function'
 
 export class Execute extends CommandAbstract {
 
@@ -56,8 +57,8 @@ export class Execute extends CommandAbstract {
         return new StoreLogic(this)
     }
     public rotatedEntity(target?: string) {
-        target = target ? target : 'mdk-core'
-        this.result.add(`rotated as @e`)
+        target = target ? target : '@s'
+        this.result.add(`rotated as ${target}`)
         return this
     }
     public rotated(y: number, x: number) {
@@ -69,7 +70,7 @@ export class Execute extends CommandAbstract {
         return this
     }
     public positionedEntity(target: string) {
-        target = target ? target : 'mdk-core'
+        target = target ? target : '@s'
         this.result.add(`positioned as ${target}`)
         return this
     }
@@ -82,12 +83,12 @@ export class Execute extends CommandAbstract {
         return this
     }
     public as(target?: string) {
-        target = target ? target : 'mdk-core'
+        target = target ? target : '@s'
         this.result.add(`as ${target}`)
         return this
     }
     public at(target?: string) {
-        target = target ? target : 'mdk-core'
+        target = target ? target : '@s'
         this.result.add(`at @s`)
         return this
     }
@@ -96,7 +97,7 @@ export class Execute extends CommandAbstract {
         return this
     }
     public facingEntity(target: string, anchorType: AnchorOption = 'feet') {
-        target = target ? target : 'mdk-core'
+        target = target ? target : '@s'
         this.result.add(`facing entity ${target} ${anchorType}`)
         return this
     }

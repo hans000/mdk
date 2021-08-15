@@ -70,9 +70,11 @@ export default {
 function getBlock(targetPos: string, path?: string, scale?: number) {
     return revise(`data get block ${targetPos} ${path} ${scale}`)
 }
+
 function getEntity(target: string, path?: string, scale?: number) {
     return revise(`data get entity ${target} ${path} ${scale}`)
 }
+
 function getStorage(target: string, path?: string, scale?: number) {
     return revise(`data get storage ${target} ${path} ${scale}`)
 }
@@ -80,9 +82,11 @@ function getStorage(target: string, path?: string, scale?: number) {
 function mergeBlock(targetPos: string, path?: string, scale?: number) {
     return revise(`data merge block ${targetPos} ${path} ${scale}`)
 }
+
 function mergeEntity(target: string, path?: string, scale?: number) {
     return revise(`data merge entity ${target} ${path} ${scale}`)
 }
+
 function mergeStorage(target: string, path?: string, scale?: number) {
     return revise(`data merge storage ${target} ${path} ${scale}`)
 }
@@ -90,9 +94,11 @@ function mergeStorage(target: string, path?: string, scale?: number) {
 function removeStorage(target: string, path?: string) {
     return revise(`data remove storage ${target} ${path}`)
 }
+
 function removeBlock(targetPos: string, path?: string) {
     return revise(`data remove block ${targetPos} ${path}`)
 }
+
 function removeEntity(target: string, path?: string) {
     return revise(`data remove entity ${target} ${path}`)
 }

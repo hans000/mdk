@@ -5,5 +5,5 @@ import { Selector } from 'mdk-core';
  * @param player 玩家
  */
 export default function(player: Selector) {
-    return `opo ${player.toString()}`
+    return `op ${player.toString()}`
 }

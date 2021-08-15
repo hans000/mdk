@@ -1,5 +1,10 @@
 import { Selector } from 'mdk-core';
 
+export default {
+    add,
+    remove,
+    list,
+}
 
 /**
  * 为该实体创建一个新的标签。
@@ -21,10 +26,4 @@ function remove(target: Selector | string, tagName: string) {
  */
 function list(target: Selector | string) {
     return `tag ${target.toString()} list`
-}
-
-export default {
-    add,
-    remove,
-    list,
 }

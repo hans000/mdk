@@ -1,12 +1,9 @@
 import { formatMCParams, formatScoreRange } from 'mdk-core';
 import { Selector } from 'mdk-core';
-import { ScoreRange } from 'mdk-nbt';
+import { BlockEntityState, ScoreRange } from 'mdk-nbt';
 import { ArgumentExpection } from 'mdk-core/src/expection';
 import Execute from './Execute';
 
-export interface IBlockState {
-    [state: string]: string | number
-}
 export default class Logic {
     readonly #context: Execute;
 
@@ -14,18 +11,21 @@ export default class Logic {
         this.#context = context;
     }
 
-    public block(blockID = 'air', axis = '~ ~ ~', blockState?: IBlockState) {
-        this.#context.add(`block ${axis} ${blockID}[${formatMCParams(blockState)}]`)
+    public block(blockID = 'air', axis = '~ ~ ~', blockState?: BlockEntityState) {
+        this.#context.add(`block ${axis} ${blockID}[${formatMCParams(blockState as any)}]`) // TODO 处理any类型
         return this.#context;
     }
+   
     public blocks() {
         this.#context.add('blocks')
         return this.#context;
     }
+  
     public data() {
         this.#context.add('data');
         return this.#context;
     }
+  
     /**
      * 探测实体
      * @param selector 选择器
@@ -38,6 +38,7 @@ export default class Logic {
         }
         return this.#context;
     }
+ 
     /**
      * 探测分数
      */
@@ -45,6 +46,7 @@ export default class Logic {
         this.#context.add(`score ${target} ${targetObjective} ${operation} ${source} ${srouceObjective}`)
         return this.#context;
     }
+  
     /**
      * 探测分数
      */
@@ -58,6 +60,7 @@ export default class Logic {
         }
         return this.#context;
     }
+  
     /**
      * 探测谓词
      * @param name 谓词名称

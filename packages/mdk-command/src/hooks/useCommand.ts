@@ -6,11 +6,11 @@ import { FillMode } from '../function/fill'
 import { ParticleIdType, VisibleMode } from '../function/particle'
 import { SaveType } from '../function/save'
 import { SetblockMode } from '../function/setblock'
-import { Selector, useFile, JText, File, LiteralType, Criteria } from 'mdk-core'
+import { Selector, useFile, JText, File, Criteria } from 'mdk-core'
 import { BiomeId, double, EnchantmentId, Entity, float, GameMode, int, SoundType, StructureType } from 'mdk-nbt'
 import { BlockItemId } from 'mdk-nbt/dist/item/__'
 import * as _ from '../function/index'
-import { Objective, ObjectiveProps } from '@/core/objective'
+import { Objective } from '@/core/objective'
 
 export function useCommand(target = new Selector()) {
     const file = useFile() as File

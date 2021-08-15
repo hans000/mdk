@@ -17,8 +17,6 @@ module.exports = {
         globalObject: 'this',
     },
     externals: {
-        // 'mdk-command': "mdk-command",
-        // 'mdk-core': "mdk-core",
         'mdk-nbt': "mdk-nbt",
     },
     resolve: {

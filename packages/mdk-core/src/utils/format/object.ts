@@ -11,7 +11,7 @@ export function toJson(object: any) {
 }
 
 interface IMCParams {
-    [name: string]: string | number | string[] | number[]
+    [name: string]: string | number | string[] | number[] | boolean
 }
 
 /**
@@ -32,7 +32,7 @@ export function formatMCParams(params: IMCParams | undefined): string {
                 return ss
             }, '')
         } else {
-            s += format(k, v)
+            s += format(k, typeof v === 'boolean' ? +v : v)
         }
         return s
     }, '')
