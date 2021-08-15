@@ -57,10 +57,10 @@ export abstract class RecipeAbstract<T extends RecipeType, D extends DataObject>
     public override add(props: RecipeProps<T>) {
         this.#list.push(props)
     }
-    public override get fullname(): string {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
-        return path.join(namespace, 'recipes', this.filename + '.mcfunction')
-    }
+    // public override get fullname(): string {
+    //     const namespace = this.namespace ? this.namespace : 'minecraft'
+    //     return path.join(namespace, 'recipes', this.filename + '.mcfunction')
+    // }
     public override create(dir: string): FileInfo {
         const name = path.join(dir, 'data', this.fullname)
         if (!this.#list.length) {

@@ -25,10 +25,10 @@ export class PredicateFile<D extends DataObject> extends FileAbstract<D> {
     public override add(item: IPredicateItem) {
         this.#list = [item]
     }
-    public override get fullname() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
-        return path.join('data', namespace, 'predicates', this.filename + '.json')
-    }
+    // public override get fullname() {
+    //     const namespace = this.namespace ? this.namespace : 'minecraft'
+    //     return path.join('data', namespace, 'predicates', this.filename + '.json')
+    // }
     public override create(dir: string): FileInfo {
         const name = path.join(dir, this.fullname)
         if (!this.#list.length) {

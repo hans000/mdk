@@ -48,8 +48,6 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
      * 添加内容
      * @param value 内容
      */
-    public addComment(value: string): void
-    public addComment(value: string[]): void
     public addComment(value: string | string[]) {
         const arr = Array.isArray(value) ? value : [value]
         this.#list.push(...arr.map(v => ({
@@ -66,14 +64,14 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
         (Array.isArray(value) ? value : [value]).forEach(file => {
             if (file instanceof FileAbstract) {
                 this.#fileSet.add(file)
-            }
-            this.#list.push(
-                file instanceof FileAbstract
-                    ? file.toJson()
-                    : typeof file === 'string'
+                this.#list.push(file.toJson())
+            } else {
+                this.#list.push(
+                    typeof file === 'string'
                         ? { type: getFileInfoType(file), text: file }
                         : file as LineInfo
-            )
+                )
+            }
         })
     }
  
@@ -87,10 +85,10 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
         this.#fileSet.add(file)
     }
    
-    public override get fullname() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
-        return path.join(namespace, 'functions', this.filename + '.mcfunction')
-    }
+    // public override get fullname() {
+    //     const namespace = this.namespace ? this.namespace : 'minecraft'
+    //     return path.join(namespace, 'functions', this.filename + '.mcfunction')
+    // }
     
     public override create(dir: string): FileInfo {
         const name = path.join(dir, 'data', this.fullname)
@@ -102,14 +100,10 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
         }
     }
     
-    public override toString() {
-        return 'function ' + super.toString()
-    }
-    
     public override toJson(): LineInfo {
         return {
             type: 'file',
-            text: this.list.length + '',
+            text: 'function ' + this.toString(),
             extra: this.#list,
         }
     }

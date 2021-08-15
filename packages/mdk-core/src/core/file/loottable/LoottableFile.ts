@@ -15,10 +15,10 @@ export class LoottableFile<D extends DataObject> extends FileAbstract<D> {
         this.#list.length = 0
         this.#list.push(text)
     }
-    public override get fullname() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
-        return path.join('data', namespace, 'loottables', this.filename + '.json')
-    }
+    // public override get fullname() {
+    //     const namespace = this.namespace ? this.namespace : 'minecraft'
+    //     return path.join('data', namespace, 'loottables', this.filename + '.json')
+    // }
     public override create(dir: string): FileInfo {
         const name = path.join(dir, 'data', this.fullname)
         const text = this.#list[0]

@@ -6,6 +6,8 @@ import { __MDK__DEV__ } from "@dev/index";
 import { useFile } from "@core/hooks";
 import { validPathName } from "@tools/valid";
 import { LiteralFuncType } from "@typings/tool";
+import { ContainerExpection } from "@/expection";
+import path from "@utils/path";
 
 export interface FileInfo {
     /** 类型 */
@@ -22,11 +24,12 @@ export interface FileInfo {
 
 export type Callback<D extends DataObject> = (context: File<{}>) => D
 
-// const registerFileNames = new Set()
+// const __filenameMap = new Set()
 
 export abstract class FileAbstract<D extends DataObject> implements ToStringAbstract {
     #context: Pack
     #namespace: string = ''
+    #type: FileType | 'recipe'
     private data: D | void
     readonly #description: string
     readonly #filename: string = ''
@@ -34,13 +37,16 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
     constructor(filename: string, type: FileType | 'recipe', namespace?: string, description: LiteralFuncType = '') {
         emit('init', this)
         validPathName(filename)
-        
-        // const key = `${namespace}/${type}/${filename}`
-        // registerFileNames.add(key)
 
         this.#filename = filename
         this.#namespace = namespace
+        this.#type = type
         this.#description = typeof description === 'string' ? description : description({ filename, namespace }) // TODO modules可能有影响
+    
+        // if (__filenameMap.has(this.fullname)) {
+        //     throw ContainerExpection('file `', this.fullname, '` is existed in this pack!')
+        // }
+        // __filenameMap.add(this.fullname)
     }
 
     /** * 获取Pack上下文 */
@@ -60,6 +66,13 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
   
     /** * 获取描述信息 */
     public get description() { return this.#description }
+  
+    /** * 获取全路径 */
+    public get fullname() {
+        const namespace = this.namespace ? this.namespace : 'minecraft'
+        const ext = this.#type === 'function' ? '.mcfunction' : '.json'
+        return path.join(namespace, this.#type, this.filename + ext)
+    }
     
     /**
      * 设置数据
@@ -72,24 +85,21 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
      * @param flag 是否缓存引用的文件，默认true
      */
     public getData(flag = true): D {
-        const context = useFile() as File
+        const file = useFile() as File
         // 缓存
-        if (flag && !context.isFileCached(this)) {
-            context.cacheFile(this)
+        if (flag && !file.isFileCached(this)) {
+            file.cacheFile(this)
         }
         // 加工数据
         if (this.data) {
             return Object.keys(this.data).reduce((s, k) => {
                 const v = this.data[k]
-                s[k] = v instanceof ContextAbstract ? v.setContext(context) : v
+                s[k] = v instanceof ContextAbstract ? v.setContext(file) : v
                 return s
             }, {}) as D
         }
         return {} as D
     }
-  
-    /** * 获取全路径 */
-    public abstract get fullname(): string
  
     /** * 添加项目 */
     public abstract add(value: unknown): void

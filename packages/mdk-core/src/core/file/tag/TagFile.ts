@@ -30,10 +30,10 @@ export class TagFile<D extends DataObject> extends FileAbstract<D> {
             : file
         this.#list.add(result)
     }
-    public override get fullname() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
-        return path.join(namespace, 'tags', this.filename + '.json')
-    }
+    // public override get fullname() {
+    //     const namespace = this.namespace ? this.namespace : 'minecraft'
+    //     return path.join(namespace, 'tags', this.filename + '.json')
+    // }
     public override create(dir: string): FileInfo {
         const name = path.join(dir, 'data', this.fullname)
         const text = JSON.stringify({

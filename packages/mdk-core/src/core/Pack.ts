@@ -52,6 +52,7 @@ export class Pack {
         if (! isValidSpacename(packname)) {
             throw FieldExpection('packname `', packname, '` just uses lower chars, digital and - _')
         }
+        
         if (typeof scope === 'string' && scope) {
             cachePrefix.add(scope)
         } else if (scope !== false) {
@@ -60,6 +61,7 @@ export class Pack {
                 getRandomStr()
             }
         }
+        
         if (modules) {
             for (const pack of modules) {
                 pack.list.forEach(file => {
@@ -70,6 +72,7 @@ export class Pack {
                 })
             }
         }
+       
         //#region // TODO 根据需求
         // if (packs) {
         //     for (const pack of packs) {
@@ -83,6 +86,7 @@ export class Pack {
         // }
         // this.#packs = packs || []
         //#endregion
+        
         this.#packname = packname
         this.#scope = scope
         this.#mcmeta.description = description instanceof JText ? description.toString() : description
@@ -99,14 +103,15 @@ export class Pack {
         const arr = Array.isArray(files) ? files : [files]
         for (const file of arr) {
             const fullname = file.fullname
-            if (!this.#fileMap.has(fullname)) {
+            
+            if (! this.#fileMap.has(fullname)) {
                 this.#fileMap.set(fullname, file)
                 file.context = this
+                this.#list.push(file)
             }
             if (this.exist(file)) {
                 throw ContainerExpection('file `', fullname, '` is existed in this pack!')
             }
-            this.#list.push(file)
         }
     }
    
