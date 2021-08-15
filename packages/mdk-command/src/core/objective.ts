@@ -2,7 +2,7 @@ import { scoreboard } from "@/function"
 import { Criteria, Selector, useFile, OperationType, LiteralType, JText } from "mdk-core/src"
 import { ContainerExpection } from "mdk-core/src/expection"
 
-const objectives = new Map<string, Objective>()
+const __objectives = new Map<string, Objective>()
 
 export type ObjectiveProps = {
     name: string
@@ -49,10 +49,10 @@ export class Objective {
     }
 
     /** * 查询积分项 */
-    public static query(objective: string) { return objectives.get(objective) }
+    public static query(objective: string) { return __objectives.get(objective) }
 
     /** * 添加此积分项 */
-    public static add(objective: string) { objectives.set(objective, new Objective(objective)) }
+    public static add(objective: string) { __objectives.set(objective, new Objective(objective)) }
 
     constructor(props: LiteralType<ObjectiveProps>, sel: Selector = null) {
         const { name, criterion, displayName } = typeof props === 'string' ? { name: props, criterion: 'dummy', displayName: '' } : props
@@ -65,6 +65,8 @@ export class Objective {
         if (Objective.query(name)) {
             throw ContainerExpection('`' + name + '` has existed in objectives')
         }
+
+        __objectives.set(name, this)
         
         const file = useFile()
         file.add(scoreboard.objectives.add(name, criterion as Criteria, displayName))
