@@ -1,6 +1,6 @@
 {
   "name": "mdkjs",
-  "version": "0.18.1-alpha",
+  "version": "0.18.2-alpha",
   "main": "./dist/mdk.js",
   "types": "./dist/mdk/src/index.d.ts",
   "description": "mdk is a framework for developing Datapacks for Minecraft. It uses the typescript language.",
