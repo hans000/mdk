@@ -3,7 +3,7 @@ import { File, DataObject, FileType } from "@core/index";
 import { ToStringAbstract, LineInfo, ContextAbstract } from '@model/index'
 import { emit } from "../plugin";
 import { __MDK__DEV__ } from "@dev/index";
-import { useFile } from "@core/hooks";
+import { useFile, usePack } from "@core/hooks";
 import { validPathName } from "@tools/valid";
 import { LiteralFuncType } from "@typings/tool";
 import { ContainerExpection } from "@/expection";
@@ -69,7 +69,14 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
   
     /** * 获取全路径 */
     public get fullname() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
+        const context = usePack()
+        console.log(context.packname);
+        
+        let namespace = this.namespace
+            ? this.namespace
+            : context.isModule
+                ? context.packname
+                : 'minecraft'
         const ext = this.#type === 'function' ? '.mcfunction' : '.json'
         return path.join(namespace, this.#type, this.filename + ext)
     }
@@ -108,7 +115,16 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
     public abstract create(dir: string): FileInfo
  
     public toString() {
-        const namespace = this.namespace ? this.namespace : 'minecraft'
+        const context = usePack()
+
+        console.log('context', context, this.context, this.filename);
+        
+
+        let namespace = this.namespace
+            ? this.namespace
+            : context.isModule
+                ? context.packname
+                : 'minecraft'
         return `${namespace}:${this.filename}`
     }
   

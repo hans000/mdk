@@ -9,10 +9,11 @@ import { createFile } from "."
 import path from "@utils/path"
 import { JText } from "@lib/index"
 import { FileInfo, FileAbstract } from "./file/FileAbstract"
+import { setPack } from "./hooks"
 
 interface Mcmeta {
     pack_format?: number,
-    description: string,
+    description?: string,
 }
 
 // const cachePack = new Map<string, Pack>()
@@ -23,11 +24,12 @@ let __result: FileInfo[] = []
 export class Pack {
     // readonly #packs: Pack[] = []
     readonly #list: FileAbstract<any>[] = []
-    readonly #mcmeta: Mcmeta = { pack_format: Pack.getPackVersion(), description: '' }
+    readonly #mcmeta: Mcmeta = {}
     readonly #packname: string;
-    readonly #fileMap = new Map<string, FileAbstract<any>>();
+    readonly #fileMap = new Map<string, FileAbstract<any>>()
     /** 作用域 */
-    readonly #scope: string | boolean;
+    readonly #scope: string | boolean
+    #isModule = false
 
     /**
      * * 1.13-1.14 版本为 4
@@ -61,10 +63,12 @@ export class Pack {
                 getRandomStr()
             }
         }
-        
-        if (modules) {
+        if (modules?.length) {
             for (const pack of modules) {
+                setPack(pack)
+                pack.isModule = true
                 pack.list.forEach(file => {
+                    file.context = pack
                     if (! file.namespace) {
                         file.namespace = pack.packname
                     }
@@ -72,7 +76,7 @@ export class Pack {
                 })
             }
         }
-       
+
         //#region // TODO 根据需求
         // if (packs) {
         //     for (const pack of packs) {
@@ -87,11 +91,16 @@ export class Pack {
         // this.#packs = packs || []
         //#endregion
         
+        setPack(this)
         this.#packname = packname
         this.#scope = scope
-        this.#mcmeta.description = description instanceof JText ? description.toString() : description
+        this.#mcmeta.description = (description || '').toString()
         this.#mcmeta.pack_format = Pack.getPackVersion(version)
     }
+
+    public get isModule() { return this.#isModule }
+
+    public set isModule(isModule: boolean) { this.#isModule = isModule }
 
     public get packname() { return this.#packname }
     
@@ -103,10 +112,13 @@ export class Pack {
         const arr = Array.isArray(files) ? files : [files]
         for (const file of arr) {
             const fullname = file.fullname
+            console.log('pack', fullname);
             
             if (! this.#fileMap.has(fullname)) {
                 this.#fileMap.set(fullname, file)
-                file.context = this
+                if (! file.context) {
+                    file.context = this
+                }
                 this.#list.push(file)
             }
             if (this.exist(file)) {
@@ -119,15 +131,15 @@ export class Pack {
     public exist(file: FileAbstract<any>): boolean
     public exist(arg: string | FileAbstract<any>) {
         if (arg instanceof FileAbstract) {
-            const file = this.#list.find(file => file.filename === arg.filename)
+            const file = this.#list.find(file => file.fullname === arg.fullname)
             // 两者引用不同说明已存在
-            return file ? file !== arg : false
+            return file ? (file !== arg) : false
         }
-        return this.#list.some(v => v.filename === arg)
+        return this.#list.some(v => v.fullname === arg)
     }
    
     private createMcmeta(): FileInfo {
-        const name = this.#packname + '/mcmeta.json'
+        const name = this.packname + '/mcmeta.json'
         const text = JSON.stringify({ pack: this.#mcmeta }, null, 4)
         return {
             name,

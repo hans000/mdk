@@ -3,6 +3,9 @@ import { __MDK__DEV__ } from "@dev/index"
 
 let __activeFile: FileAbstract<any> = null
 
+/**
+ * 设置当前file对象
+ */
 export function setFile(file: FileAbstract<any>) {
     __activeFile = file
 }

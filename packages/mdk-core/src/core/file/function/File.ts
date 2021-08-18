@@ -104,7 +104,8 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
         return {
             type: 'file',
             text: 'function ' + this.toString(),
-            extra: this.#list,
+            extra: this.list,
+            // extra: this.#list.map(el => el instanceof FileAbstract ? el.toJson() : el),
         }
     }
 }
