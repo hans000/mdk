@@ -12,12 +12,12 @@ export interface SpawnerBlock {
     MinSpawnDelay: short
     RequiredPlayerRange: short
     SpawnCount: short
-    SpawnData: any // TODO https://minecraft.fandom.com/zh/wiki/%E5%88%B7%E6%80%AA%E7%AC%BC
+    SpawnData: any // TODO mdk-nbt  https://minecraft.fandom.com/zh/wiki/%E5%88%B7%E6%80%AA%E7%AC%BC
     SpawnPotentials: SpawnerPotential[]
     SpawnRange: short
 }
 
 export interface SpawnerPotential {
-    Entity: any // TODO
+    Entity: any // TODO mdk-nbt 
     Weight: int
 }

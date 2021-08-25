@@ -16,7 +16,7 @@ export interface GeneralTag {
     /** 冒险模式的玩家可以将方块放置在其表面的方块 */
     CanPlaceOn?: string[]
     /** 方块放置后应用的方块实体NBT标签 */
-    BlockEntityTag?: any //TODO
+    BlockEntityTag?: any //TODO mdk-nbt 
     /** 方块状态 */
     BlockStateTag?: any
     /** 影响物品特征的附魔信息 */
@@ -26,12 +26,12 @@ export interface GeneralTag {
     /** 当在铁砧上修理、合并或重命名当前物品时，表示在基础等级消耗之上额外增加的附魔等级 */
     RepairCost?: int
     /** 物品的修饰属性 */
-    AttributeModifiers?: AttributeModifier[] // TODO
+    AttributeModifiers?: AttributeModifier[] // TODO mdk-nbt 
     /** 当前药水或药箭所含有的自定义状态效果 */
     CustomPotionEffects: PotionEffect[]
     /** 药水效果的名称 */
     Potion: byte
     /** 当前物品使用这项自定义颜色 */
     CustomPotionColor: int
-    // TODO https://minecraft.fandom.com/zh/wiki/Player.dat%E6%A0%BC%E5%BC%8F#.E7.89.A9.E5.93.81.E7.BB.93.E6.9E.84
+    // TODO mdk-nbt https://minecraft.fandom.com/zh/wiki/Player.dat%E6%A0%BC%E5%BC%8F#.E7.89.A9.E5.93.81.E7.BB.93.E6.9E.84
 }

@@ -6,7 +6,7 @@ export interface Container extends BlockEntityBase {
     CustomName: string
     Lock: string
     /** 当前容器内物品的列表 */
-    Items: any // TODO ItemEntity
+    Items: any // TODO mdk-nbt ItemEntity
 }
 
 export interface LootContainer extends Container, HasLoottable {

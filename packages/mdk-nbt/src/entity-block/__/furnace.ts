@@ -16,7 +16,7 @@ export interface Furnace extends LootContainer {
     BurnTime: short
     CookTime: short
     CookTimeTotal: short
-    RecipeLocationN: string // TODO
+    RecipeLocationN: string // TODO mdk-nbt 
     RecipeAmountN: int
     RecipesUsedSize: short
 }

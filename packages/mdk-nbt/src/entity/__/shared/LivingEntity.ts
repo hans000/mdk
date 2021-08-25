@@ -2,7 +2,7 @@ import { float, short, int, UUID } from "@shared/__";
 import { EntityBase } from "./EntityBase";
 
 export interface Brain {
-    memories: Record<string, string>; // Memories; // TODO
+    memories: Record<string, string>; // Memories; // TODO mdk-nbt 
 }
 // export interface AttributeModifier {
 //     Name: string;

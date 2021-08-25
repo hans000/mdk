@@ -5,7 +5,7 @@ import { SlottedItem } from "@shared/__/Item";
 import { int, short, float, double, long } from "@shared/__/numberic";
 
 export interface Player extends Omit<LivingEntity, 'id'> {
-	id: 'player', // TODO check?
+	id: 'player', // TODO mdk-nbt check?
 	DataVersion?: int,
 	Dimension?: DimensionKind,
 	playerGameType?: GameModeKind,

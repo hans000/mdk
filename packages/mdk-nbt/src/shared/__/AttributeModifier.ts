@@ -4,7 +4,7 @@ import { UUID } from "./uuid";
 /** 属性修饰符 */
 export interface AttributeModifier {
     /** 属性名称 */
-    AttributeName?: string // TODO
+    AttributeName?: string // TODO mdk-nbt 
     /** 修饰符的名称 */
     Name?: string
     /** 指定修饰符产生效果的槽位 */
@@ -26,4 +26,4 @@ export type AttributeSlot =
     | "head"
 
 export type ModifierOperation = string
-// TODO https://minecraft.fandom.com/zh/wiki/%E5%B1%9E%E6%80%A7#.E4.BF.AE.E9.A5.B0.E7.AC.A6
+// TODO mdk-nbt https://minecraft.fandom.com/zh/wiki/%E5%B1%9E%E6%80%A7#.E4.BF.AE.E9.A5.B0.E7.AC.A6
