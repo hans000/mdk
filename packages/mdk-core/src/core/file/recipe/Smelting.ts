@@ -1,12 +1,14 @@
-import { LiteralFuncType } from "@typings/tool";
-import { DataObject } from "../../createFile";
+import { DataObject } from "@typings/base";
 import { emit } from "../../plugin";
-import { RecipeAbstract, SmeltingType } from "./RecipeAbstract";
+import { RecipeAbstract, RecipeOptions, SmeltingType } from "./RecipeAbstract";
 
+export interface SmeltingOptions<D extends DataObject> extends RecipeOptions<D> {
+    render: (context: Smelting<any>) => D | void
+}
 
 export class Smelting<D extends DataObject> extends RecipeAbstract<SmeltingType, D> {
-    constructor(filename: string, namespace: string, description: LiteralFuncType = '') {
-        super(filename, namespace, description)
+    constructor(options: SmeltingOptions<D>) {
+        super(options)
         emit('init', this)
     }
 }

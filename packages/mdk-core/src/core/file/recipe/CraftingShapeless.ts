@@ -1,11 +1,14 @@
-import { LiteralFuncType } from "@typings/tool";
-import { DataObject } from "../../createFile";
+import { DataObject } from "@typings/base";
 import { emit } from "../../plugin";
-import { RecipeAbstract } from "./RecipeAbstract";
+import { RecipeAbstract, RecipeOptions } from "./RecipeAbstract";
+
+export interface CraftingShapelessOptions<D extends DataObject> extends RecipeOptions<D> {
+    render: (context: CraftingShapeless<any>) => D | void
+}
 
 export class CraftingShapeless<D extends DataObject> extends RecipeAbstract<'crafting_shapeless', D> {
-    constructor(filename: string, namespace: string, description: LiteralFuncType = '') {
-        super(filename, namespace, description)
+    constructor(options: CraftingShapelessOptions<D>) {
+        super(options)
         emit('init', this)
     }
 }

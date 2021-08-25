@@ -1,17 +1,15 @@
-import { LineInfo } from 'mdk-core';
+import { LineInfo, LiteralType, TextToken } from 'mdk-core';
 import { JText, Selector } from 'mdk-core';
 
 export default tellraw
 
-function tellraw(target: Selector, msg: string): string
-function tellraw(target: Selector, json: JText): LineInfo<JText>
-function tellraw(target: Selector, json: string | JText): string | LineInfo<JText> {
-    if (json instanceof JText) {
+function tellraw(target: Selector, json: LiteralType<TextToken[]>): LiteralType<LineInfo<JText>> {
+    if (Array.isArray(json)) {
         return {
             type: 'tellraw',
-            text: `tellraw ${target.toString()} ${json}`,
+            text: `tellraw ${target.toString()} ${JText.format(json)}`,
             extra: json,
         }
     }
-    return `tellraw ${target.toString()} ${json}`
+    return `tellraw ${target.toString()} ${JText.format(json)}`
 }

@@ -6,7 +6,7 @@ import { FillMode } from '../function/fill'
 import { ParticleIdType, VisibleMode } from '../function/particle'
 import { SaveType } from '../function/save'
 import { SetblockMode } from '../function/setblock'
-import { Selector, useFile, JText, File, Criteria } from 'mdk-core'
+import { Selector, useFile, JText, File, Criteria, LiteralType, TextToken } from 'mdk-core'
 import { BiomeId, double, EnchantmentId, Entity, float, GameMode, int, SoundType, StructureType } from 'mdk-nbt'
 import { BlockItemId } from 'mdk-nbt/dist/item/__'
 import * as _ from '../function/index'
@@ -241,13 +241,10 @@ export function useCommand(target = new Selector()) {
         file.add(_.saveOff())
     }
 
-    function tellraw(msg: string | JText) {
-        if (msg instanceof JText) {
-            file.add(_.tellraw(target, msg))
-        } else {
-            file.add(_.tellraw(target, msg))
-        }
+    function tellraw(json: LiteralType<TextToken[]>) {
+        file.add(_.tellraw(target, json))
     }
+    
     function spectate(player: string) {
         file.add(_.spectate(target, player))
     }

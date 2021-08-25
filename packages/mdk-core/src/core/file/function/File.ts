@@ -1,14 +1,21 @@
-import { FileAbstract, FileInfo } from '../FileAbstract';
+import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import path from '@utils/path';
-import { FieldExpection } from '../../../expection';
-import { DataObject } from '../../createFile';
 import { emit } from '../../plugin';
 import { LineInfo } from '@model/index';
-import { LiteralFuncType } from '@typings/tool';
+import { LiteralUnion } from '@typings/tool';
+import { Pack } from "@core/Pack";
+import { DataObject } from '@typings/base';
+import { FieldExpection } from '@/expection';
 
 function getFileInfoType(value: string) {
     const prefix = value.split(' ')[0]
     return prefix ? prefix : 'unknown'
+}
+export interface FileOptions<D extends DataObject = {}> extends FileAbstractOptions<D> {
+    /** tag文件，仅用于.mcfunction，例如：tick load等 */
+    tag?: LiteralUnion<'load' | 'tick', string>
+    /** 渲染入口 */
+    render: (context: File<any>) => D | void
 }
 
 /**
@@ -17,22 +24,19 @@ function getFileInfoType(value: string) {
  */
 export class File<D extends DataObject = {}> extends FileAbstract<D> {
     readonly #list: LineInfo[] = []
-    readonly #fileSet = new Set<FileAbstract<D>>()
-    readonly #tag: string = ''
-    readonly #tagNamespace: string
+    #tag: string = ''
+    #tagNamespace = ''
 
-    constructor(filename: string, namespace?: string, tag = '', description: LiteralFuncType = '') {
-        super(filename, 'function', namespace, description)
+    constructor(options: FileOptions<D>) {
+        super({
+            filename: options.filename,
+            namespace: options.namespace,
+            description: options.description || '',
+            render: options.render,
+            type: 'functions',
+        })
+        this.#tag = options.tag || ''
         emit('init', this)
-        if (tag) {
-            const match = /^([a-z_]:)?([a-z_][a-z_-\d\/]*[a-z_-\d]*)$/.exec(tag)
-            if (!match) {
-                throw FieldExpection('invalid tag declare `' + tag + '`, cannot contain these chars `< > ? : * | \\`  and the format like `sys:foo/bar`')
-            }
-            const [, _tagNamespace, _tag] = match
-            this.#tagNamespace = (_tagNamespace || 'minecraft:').slice(0, -1)
-            this.#tag = _tag
-        }
     }
  
     /** file对象中的内容 */
@@ -61,38 +65,41 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
      * @param value 内容
      */
     public override add(value: string | LineInfo | FileAbstract<D>) {
-        (Array.isArray(value) ? value : [value]).forEach(file => {
-            if (file instanceof FileAbstract) {
-                this.#fileSet.add(file)
-                this.#list.push(file.toJson())
-            } else {
-                this.#list.push(
-                    typeof file === 'string'
-                        ? { type: getFileInfoType(file), text: file }
-                        : file as LineInfo
-                )
-            }
-        })
+        if (value instanceof FileAbstract) {
+            value.context = this.context
+            this.#list.push(value.toJson())
+            Pack.cacheFile(value)
+        } else {
+            this.#list.push(
+                typeof value === 'string'
+                    ? { type: getFileInfoType(value), text: value }
+                    : value as LineInfo
+            )
+        }
     }
- 
-    /** 判断是否已缓存此file对象 */
-    public isFileCached(file: FileAbstract<any>) {
-        return this.#fileSet.has(file)
+
+    public override load() {
+        super.load()
+        const tag = this.#tag
+        if (tag) {
+            const match = /^([a-z_]:)?([a-z_][a-z_-\d\/]*[a-z_-\d]*)$/.exec(tag)
+            if (! match) {
+                throw FieldExpection('invalid tag declare `' + tag + '`, cannot contain these chars `< > ? : * | \\`  and the format like `sys:foo/bar`')
+            }
+            const [, _tagNamespace, _tag] = match
+            this.#tagNamespace = (
+                _tagNamespace
+                    ? _tagNamespace.slice(0, -1)
+                    : this.context.isModule
+                        ? this.context.packname
+                        : 'minecraft'
+            )
+            this.#tag = _tag
+        }
     }
   
-    /** 缓存file对象 */
-    public cacheFile(file: FileAbstract<any>) {
-        this.#fileSet.add(file)
-    }
-   
-    // public override get fullname() {
-    //     const namespace = this.namespace ? this.namespace : 'minecraft'
-    //     return path.join(namespace, 'functions', this.filename + '.mcfunction')
-    // }
-    
     public override create(dir: string): FileInfo {
         const name = path.join(dir, 'data', this.fullname)
-        this.context.add(Array.from(this.#fileSet))
         return {
             name,
             description: this.description,
@@ -101,11 +108,11 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
     }
     
     public override toJson(): LineInfo {
+        this.load()
         return {
             type: 'file',
             text: 'function ' + this.toString(),
             extra: this.list,
-            // extra: this.#list.map(el => el instanceof FileAbstract ? el.toJson() : el),
         }
     }
 }

@@ -1,10 +1,11 @@
-import { DataObject } from '../../createFile';
 import { FieldExpection } from '../../../expection';
 import { int, float, EnchantmentId, RangeObject } from 'mdk-nbt';
 import path from '@utils/path';
-import { FileAbstract, FileInfo } from '../FileAbstract';
+import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { LiteralFuncType, ObjectMap } from '@typings/tool';
+import { ObjectMap } from '@typings/tool';
+import { LoottableFile } from '@core/index';
+import { DataObject } from '@typings/base';
 
 type EntityTargetType = 'this' | 'killer' | 'killer_player'
 export interface IPredicateItem {
@@ -15,21 +16,30 @@ export interface IPredicateItem {
 export type PredicateMap<D extends DataObject> = ObjectMap<PredicateFile<D>>
 export type PredicateItemMap = ObjectMap<IPredicateItem>
 
+export interface PredicateOptions<D extends DataObject = {}> extends FileAbstractOptions<D> {
+    /** 渲染入口 */
+    render: (context: PredicateFile<any>) => D | void
+}
 export class PredicateFile<D extends DataObject> extends FileAbstract<D> {
     #list: IPredicateItem[] = []
 
-    constructor(filename: string, namespace: string, description: LiteralFuncType) {
-        super(filename, 'predicate', namespace, description)
+    constructor(options: PredicateOptions<D>) {
+        super({
+            filename: options.filename,
+            namespace: options.namespace,
+            description: options.description || '',
+            render: options.render,
+            type: 'predicates',
+        })
         emit('init', this)
     }
+    
     public override add(item: IPredicateItem) {
         this.#list = [item]
     }
-    // public override get fullname() {
-    //     const namespace = this.namespace ? this.namespace : 'minecraft'
-    //     return path.join('data', namespace, 'predicates', this.filename + '.json')
-    // }
+    
     public override create(dir: string): FileInfo {
+        super.load()
         const name = path.join(dir, this.fullname)
         if (!this.#list.length) {
             throw FieldExpection('`' + name + '` data is empty, please add one')

@@ -5,24 +5,17 @@ import { ContainerExpection } from "mdk-core/src/expection";
 const registTags = new Set()
 
 export class Tag extends ContextAbstract {
-    readonly #prefix: string | boolean
+    readonly #scope: string | boolean
     readonly #target: Selector
     
     constructor(context: File, target: Selector) {
         super(context)
         this.#target = target
-        this.#prefix = context.context.scope
+        this.#scope = context.context.scope
     }
 
     private getTagname(tagName: string) {
-        if (this.#prefix) {
-            if (typeof this.#prefix === 'string') {
-                return `${this.#prefix}_${tagName}`
-            } else {
-                return `${Math.random().toString(36).slice(2)}_${tagName}`
-            }
-        }
-        return tagName
+        return this.#scope ? `${this.#scope}_${tagName}` : tagName
     }
     /**
      * 为该实体创建一个新的标签。
@@ -31,7 +24,7 @@ export class Tag extends ContextAbstract {
     public add(tagName: string) {
         const newTagName = this.getTagname(tagName)
         if (registTags.has(newTagName)) {
-            throw ContainerExpection(`this ${newTagName} tag has already existed`)
+            throw ContainerExpection('this `', newTagName, '` tag has already existed')
         }
         registTags.add(newTagName)
         this.context.add(tag.add(this.#target, newTagName))

@@ -1,10 +1,17 @@
 import { File } from '../../src'
 
 describe('File测试', () => {
+    process.env.__DEV__ = "true"
     test('File最简实例化测试', () => {
-        const file = new File('foo')
-        file.add('say 1')
-        file.addComment('this is a comment')
+        const file = new File({
+            filename: 'foo',
+            render(ctx) {
+                ctx.add('say 1')
+                ctx.addComment('this is a comment')
+            }
+        })
+
+        file.load()
 
         expect(file.filename).toEqual('foo')
         expect(file.tag).toEqual('')

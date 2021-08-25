@@ -1,13 +1,35 @@
-import { Pack } from "../Pack";
-import { File, DataObject, FileType } from "@core/index";
-import { ToStringAbstract, LineInfo, ContextAbstract } from '@model/index'
+import { File } from "@core/index";
+import { setFile, usePack } from "../hooks";
+import { ToStringAbstract, LineInfo } from '@model/index'
 import { emit } from "../plugin";
 import { __MDK__DEV__ } from "@dev/index";
-import { useFile, usePack } from "@core/hooks";
 import { validPathName } from "@tools/valid";
 import { LiteralFuncType } from "@typings/tool";
-import { ContainerExpection } from "@/expection";
 import path from "@utils/path";
+import { DataObject } from "@typings/base";
+import { Pack } from "@core/Pack";
+
+export type FileType =
+    | 'functions'
+    | 'predicates'
+    | 'loottables'
+    | 'tags'
+    // | 'advancement'
+    // | 'dimension'
+    // | 'worldgen'
+
+export interface FileAbstractOptions<D extends DataObject = {}> {
+    /** 文件名 */
+    filename: string
+    /** 命名空间，默认minecraft */
+    namespace?: string
+    /** 描述信息 */
+    description?: LiteralFuncType
+    /** 渲染入口 */
+    render: (context: FileAbstract<any>) => D | void
+    /** 文件类型，默认function */
+    type?: FileType | 'recipes'
+}
 
 export interface FileInfo {
     /** 类型 */
@@ -24,88 +46,77 @@ export interface FileInfo {
 
 export type Callback<D extends DataObject> = (context: File<{}>) => D
 
-// const __filenameMap = new Set()
 
-export abstract class FileAbstract<D extends DataObject> implements ToStringAbstract {
-    #context: Pack
-    #namespace: string = ''
-    #type: FileType | 'recipe'
-    private data: D | void
-    readonly #description: string
-    readonly #filename: string = ''
+export abstract class FileAbstract<D extends DataObject = {}> implements ToStringAbstract {
+    #data: D = null
+    readonly #options: FileAbstractOptions<D>
+    public context: Pack = null
 
-    constructor(filename: string, type: FileType | 'recipe', namespace?: string, description: LiteralFuncType = '') {
+    constructor(options: FileAbstractOptions<D>) {
+        this.#options = options
+        validPathName(options.filename)
         emit('init', this)
-        validPathName(filename)
-
-        this.#filename = filename
-        this.#namespace = namespace
-        this.#type = type
-        this.#description = typeof description === 'string' ? description : description({ filename, namespace }) // TODO modules可能有影响
-    
-        // if (__filenameMap.has(this.fullname)) {
-        //     throw ContainerExpection('file `', this.fullname, '` is existed in this pack!')
-        // }
-        // __filenameMap.add(this.fullname)
     }
-
-    /** * 获取Pack上下文 */
-    public get context() { return this.#context }
-    
-    /** * 设置Pack上下文 */
-    public set context(context: Pack) { this.#context = context }
    
     /** * 获取文件名 */
-    public get filename() { return this.#filename }
+    public get filename() { return this.#options.filename }
    
     /** * 获取命名空间 */
-    public get namespace() { return this.#namespace }
+    public get namespace() {
+        const context = process.env.__DEV__ ? __MDK__DEV__.pack : this.context
+        const { namespace } = this.#options
+        return (
+            namespace
+                ? namespace
+                : context.isModule
+                    ? context.packname
+                    : 'minecraft'
+        )
+    }
+
+    /** * 获取类型 */
+    public get type() { return this.#options.type }
 
     /** * 设置命名空间 */
-    public set namespace(namespace: string) { this.#namespace = namespace }
+    // public set namespace(namespace: string) { this.#options.namespace = namespace }
   
     /** * 获取描述信息 */
-    public get description() { return this.#description }
+    public get description() {
+        const { description } = this.#options
+        return typeof description === 'string'
+            ? description
+            : description({
+                filename: this.filename,
+                namespace: this.namespace,
+            })
+    }
   
+    public load() {
+        setFile(this)
+        if (this.#data === null) {
+            const data = this.#options.render(this) || {}
+            this.#data = data as D
+        }
+    }
+
     /** * 获取全路径 */
     public get fullname() {
-        const context = usePack()
-        console.log(context.packname);
-        
-        let namespace = this.namespace
-            ? this.namespace
-            : context.isModule
-                ? context.packname
-                : 'minecraft'
-        const ext = this.#type === 'function' ? '.mcfunction' : '.json'
-        return path.join(namespace, this.#type, this.filename + ext)
+
+        const ext = this.type === 'functions' ? '.mcfunction' : '.json'
+        return path.join(this.namespace, this.type, this.filename + ext)
     }
-    
-    /**
-     * 设置数据
-     * @param data 用户自定义数据
-     */
-    public setData(data: D | void) { this.data = data }
   
     /**
      * 获取接口数据
      * @param flag 是否缓存引用的文件，默认true
      */
     public getData(flag = true): D {
-        const file = useFile() as File
-        // 缓存
-        if (flag && !file.isFileCached(this)) {
-            file.cacheFile(this)
+        if (flag) {
+            const pack = usePack()
+            pack.add(this)
         }
-        // 加工数据
-        if (this.data) {
-            return Object.keys(this.data).reduce((s, k) => {
-                const v = this.data[k]
-                s[k] = v instanceof ContextAbstract ? v.setContext(file) : v
-                return s
-            }, {}) as D
-        }
-        return {} as D
+        this.load()
+        return this.#data
     }
  
     /** * 添加项目 */
@@ -115,11 +126,8 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
     public abstract create(dir: string): FileInfo
  
     public toString() {
+        this.load()
         const context = usePack()
-
-        console.log('context', context, this.context, this.filename);
-        
-
         let namespace = this.namespace
             ? this.namespace
             : context.isModule
@@ -129,6 +137,7 @@ export abstract class FileAbstract<D extends DataObject> implements ToStringAbst
     }
   
     public toJson(): LineInfo {
+        this.load()
         return {
             type: 'unknown',
             text: this.toString(),

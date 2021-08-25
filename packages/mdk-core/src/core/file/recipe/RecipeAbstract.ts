@@ -2,10 +2,10 @@ import { ItemId } from "mdk-nbt"
 import { FieldExpection } from "../../../expection"
 import { int } from 'mdk-nbt'
 import path from "@utils/path"
-import { DataObject } from "../../createFile"
 import { emit } from "../../plugin"
-import { FileAbstract, FileInfo } from "../FileAbstract"
+import { FileAbstract, FileAbstractOptions, FileInfo } from "../FileAbstract"
 import { LiteralFuncType } from "@typings/tool"
+import { DataObject } from "@typings/base"
 
 export type RecipeType =
     | 'crafting_shaped'     /** 有序合成 */
@@ -46,22 +46,30 @@ export interface RecipeProps<T extends RecipeType> {
     /** 结果 */
     result: RecipeResult
 }
-
+export interface RecipeOptions<D extends DataObject> extends FileAbstractOptions<D> {
+    /** 渲染入口 */
+    render: (context: RecipeAbstract<RecipeType, any>) => D | void
+}
 export abstract class RecipeAbstract<T extends RecipeType, D extends DataObject> extends FileAbstract<D> {
     #list: RecipeProps<T>[] = []
     
-    constructor(filename: string, namespace: string, description: LiteralFuncType = '') {
-        super(filename, 'recipe', namespace, description)
+    constructor(options: RecipeOptions<any>) {
+        super({
+            filename: options.filename,
+            namespace: options.namespace,
+            description: options.description || '',
+            render: options.render,
+            type: 'recipes',
+        })
         emit('init', this)
     }
+    
     public override add(props: RecipeProps<T>) {
         this.#list.push(props)
     }
-    // public override get fullname(): string {
-    //     const namespace = this.namespace ? this.namespace : 'minecraft'
-    //     return path.join(namespace, 'recipes', this.filename + '.mcfunction')
-    // }
+    
     public override create(dir: string): FileInfo {
+        super.load()
         const name = path.join(dir, 'data', this.fullname)
         if (!this.#list.length) {
             throw FieldExpection('`' + name + '` data is empty, please add one')

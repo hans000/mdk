@@ -1,9 +1,8 @@
 import { File } from '..'
-import { DataObject } from '../../createFile';
 import path from '@utils/path';
-import { FileAbstract, FileInfo } from '../FileAbstract';
+import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { LiteralFuncType } from '@typings/tool';
+import { DataObject } from '@typings/base';
 
 export type TagFileType =
     | 'blocks' 
@@ -11,30 +10,39 @@ export type TagFileType =
     | 'items' 
     | 'fluids' 
     | 'functions'
+    
 export type FilenameType = `${TagFileType}/${string}`
 
+export interface TagOptions<D extends DataObject = {}> extends FileAbstractOptions<D> {
+    /** 渲染入口 */
+    render: (context: TagFile<any>) => D | void
+    replace?: boolean
+}
 export class TagFile<D extends DataObject> extends FileAbstract<D> {
     readonly #replace: boolean
     readonly #list = new Set<string>()
 
-    constructor(filename: FilenameType, namespace: string, replace = false, description: LiteralFuncType) {
-        super(filename, 'tags', namespace, description)
+    constructor(options: TagOptions<D>) {
+        super({
+            filename: options.filename,
+            namespace: options.namespace,
+            description: options.description || '',
+            render: options.render,
+            type: 'tags',
+        })
         emit('init', this)
-        this.#replace = replace
+        this.#replace = options.replace
     }
-    public override add(file: string): void
-    public override add(file: File<D>): void
+
     public override add(file: File<D> | string) { // TODO 验重
         const result = file instanceof File
             ? file.toString().replace(/^function /, '')
             : file
         this.#list.add(result)
     }
-    // public override get fullname() {
-    //     const namespace = this.namespace ? this.namespace : 'minecraft'
-    //     return path.join(namespace, 'tags', this.filename + '.json')
-    // }
+
     public override create(dir: string): FileInfo {
+        super.load()
         const name = path.join(dir, 'data', this.fullname)
         const text = JSON.stringify({
             replace: this.#replace,

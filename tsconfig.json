@@ -4,8 +4,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "mdk-core": ["../mdk-core/src"],
-      "mdk-command": ["../mdk-command/src"],
+      "mdk-core": ["./packages/mdk-core/src"],
+      "mdk-command": ["./packages/mdk-command/src"],
       "@class/*": ["./packages/mdk-command/src/class/*"],
       "@function/*": ["./packages/mdk-command/src/function/*"],
       "@dev/*": ["./packages/mdk-core/src/__dev__/*"],

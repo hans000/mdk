@@ -1,5 +1,5 @@
 import { scoreboard } from "@/function"
-import { Criteria, Selector, useFile, OperationType, LiteralType, JText } from "mdk-core/src"
+import { Criteria, Selector, useFile, OperationType, LiteralType, JText, TextToken, usePack } from "mdk-core/src"
 import { ContainerExpection } from "mdk-core/src/expection"
 
 const __objectives = new Map<string, Objective>()
@@ -39,13 +39,13 @@ export class Objective {
         file.add(scoreboard.objectives.setdisplay(slot, name))
     }
 
-    public static modify(objective: LiteralType<Objective>, displayName: LiteralType<JText>) {
+    public static modify(objective: LiteralType<Objective>, displayName: LiteralType<TextToken[]>) {
         const name = typeof objective === 'string' ? objective : objective.name 
         if (! Objective.query(name)) {
             throw ContainerExpection(`${name} is not exist in objectives`)
         }
         const file = useFile()
-        file.add(scoreboard.objectives.modify(name, displayName.toString()))
+        file.add(scoreboard.objectives.modify(name, JText.format(displayName)))
     }
 
     /** * 查询积分项 */
@@ -55,7 +55,11 @@ export class Objective {
     public static add(objective: string) { __objectives.set(objective, new Objective(objective)) }
 
     constructor(props: LiteralType<ObjectiveProps>, sel: Selector = null) {
-        const { name, criterion, displayName } = typeof props === 'string' ? { name: props, criterion: 'dummy', displayName: '' } : props
+        let { name, criterion, displayName } = typeof props === 'string' ? { name: props, criterion: 'dummy', displayName: '' } : props
+        
+        const file = useFile()
+
+        name = file.context.scope ? `${file.context.scope}_${name}` : name
         this.#name = name
         this.#criterion = criterion as Criteria
         this.#displayName = displayName
@@ -68,7 +72,6 @@ export class Objective {
 
         __objectives.set(name, this)
         
-        const file = useFile()
         file.add(scoreboard.objectives.add(name, criterion as Criteria, displayName))
     }
 

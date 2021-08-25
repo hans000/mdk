@@ -1,15 +1,21 @@
-import { jtext, Text } from '../../../src'
+import { JText, Text } from '../../../src'
 
 describe('jtext测试', () => {
-    // test('测试实例化', () => {
-    //     const jtext = mdk.jtext()
-    //     expect(jtext.toString()).toEqual('[""]')
-    // })
+    const jt = [
+        Text.text('hello'),
+        Text.black.text('world'),
+    ]
 
-    test('测试add方法，组件', () => {
-        const jt = jtext()
-        jt.add(Text.text('hello'))
-        jt.add(Text.black.text('world'))
-        expect(jt.toString()).toEqual('["",{"text":"hello"},{"text":"world","color":"black"}]')
+    test('测试format', () => {
+        expect(JText.format(jt)).toBe('["",{"text":"hello"},{"text":"world","color":"black"}]')
     })
+
+    test('测试toJson', () => {
+        expect(JText.toJson(jt)).toEqual({
+            type: 'jtext',
+            text: null,
+            extra: jt,
+        })
+    })
+
 })

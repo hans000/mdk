@@ -1,4 +1,4 @@
-import { createFile, Selector } from '../../src'
+import { Selector } from '../../src'
 
 describe('Selector', () => {
     process.env.__DEV__ = "true"

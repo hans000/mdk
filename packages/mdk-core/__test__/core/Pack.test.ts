@@ -6,8 +6,10 @@ describe('Pack测试', () => {
             scope: false,
             packname: 'packname',
             description: 'pack description',
-            version: '1.16'
+            version: '1.16',
         })
+        pack.load()
+
         expect(pack.packname).toEqual('packname')
         expect(pack.scope).toEqual(false)
     })
