@@ -83,20 +83,18 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="Pack.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_fileMap" class="tsd-kind-icon">#file<wbr>Map</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_list" class="tsd-kind-icon">#list</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_mcmeta" class="tsd-kind-icon">#mcmeta</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_packname" class="tsd-kind-icon">#packname</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_options" class="tsd-kind-icon">#options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Pack.html#_scope" class="tsd-kind-icon">#scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="Pack.html#isModule" class="tsd-kind-icon">is<wbr>Module</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Pack.html#list" class="tsd-kind-icon">list</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Pack.html#mcmeta" class="tsd-kind-icon">mcmeta</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Pack.html#packname" class="tsd-kind-icon">packname</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Pack.html#scope" class="tsd-kind-icon">scope</a></li>
 							</ul>
@@ -108,7 +106,11 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Pack.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="Pack.html#createFunctionTagFile" class="tsd-kind-icon">create<wbr>Function<wbr>Tag<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="Pack.html#createMcmeta" class="tsd-kind-icon">create<wbr>Mcmeta</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Pack.html#exist" class="tsd-kind-icon">exist</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Pack.html#load" class="tsd-kind-icon">load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Pack.html#cacheFile" class="tsd-kind-icon">cache<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Pack.html#cachePack" class="tsd-kind-icon">cache<wbr>Pack</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Pack.html#existFile" class="tsd-kind-icon">exist<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Pack.html#existPack" class="tsd-kind-icon">exist<wbr>Pack</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Pack.html#getPackVersion" class="tsd-kind-icon">get<wbr>Pack<wbr>Version</a></li>
 							</ul>
 						</section>
@@ -121,19 +123,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Pack<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PackOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PackOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;files&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Pack<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><a href="../interfaces/PackOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PackOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L49">mdk-core/src/core/Pack.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L82">mdk-core/src/core/Pack.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>props: <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PackOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PackOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;files&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>props: <a href="../interfaces/PackOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PackOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a></h4>
@@ -141,55 +143,25 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_fileMap" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #file<wbr>Map</h3>
-					<div class="tsd-signature tsd-kind-icon">#file<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<a name="_options" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #options</h3>
+					<div class="tsd-signature tsd-kind-icon">#options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/PackOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PackOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L28">mdk-core/src/core/Pack.ts:28</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_list" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #list</h3>
-					<div class="tsd-signature tsd-kind-icon">#list<span class="tsd-signature-symbol">:</span> <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L25">mdk-core/src/core/Pack.ts:25</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_mcmeta" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #mcmeta</h3>
-					<div class="tsd-signature tsd-kind-icon">#mcmeta<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Mcmeta</span><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L26">mdk-core/src/core/Pack.ts:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_packname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #packname</h3>
-					<div class="tsd-signature tsd-kind-icon">#packname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L27">mdk-core/src/core/Pack.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L43">mdk-core/src/core/Pack.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_scope" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> #scope</h3>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> #scope</h3>
 					<div class="tsd-signature tsd-kind-icon">#scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L30">mdk-core/src/core/Pack.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L42">mdk-core/src/core/Pack.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -198,23 +170,33 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isModule" class="tsd-anchor"></a>
+					<h3>is<wbr>Module</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Module<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L44">mdk-core/src/core/Pack.ts:44</a></li>
+						</ul>
+					</aside>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="list" class="tsd-anchor"></a>
-					<h3>list</h3>
+					<a name="mcmeta" class="tsd-anchor"></a>
+					<h3>mcmeta</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> list<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> mcmeta<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Mcmeta</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L100">mdk-core/src/core/Pack.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L137">mdk-core/src/core/Pack.ts:137</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Mcmeta</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -228,7 +210,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L96">mdk-core/src/core/Pack.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L128">mdk-core/src/core/Pack.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -245,7 +227,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L98">mdk-core/src/core/Pack.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L130">mdk-core/src/core/Pack.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></h4>
@@ -259,19 +241,19 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>files<span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L102">mdk-core/src/core/Pack.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L132">mdk-core/src/core/Pack.ts:132</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>files: <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>file: <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -288,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L160">mdk-core/src/core/Pack.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L175">mdk-core/src/core/Pack.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
@@ -310,7 +292,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L140">mdk-core/src/core/Pack.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L155">mdk-core/src/core/Pack.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -333,7 +315,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L129">mdk-core/src/core/Pack.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L144">mdk-core/src/core/Pack.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/FileInfo.html" class="tsd-signature-type" data-tsd-kind="Interface">FileInfo</a></h4>
@@ -341,37 +323,108 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="exist" class="tsd-anchor"></a>
-					<h3>exist</h3>
+					<a name="load" class="tsd-anchor"></a>
+					<h3>load</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">exist<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-						<li class="tsd-signature tsd-kind-icon">exist<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L118">mdk-core/src/core/Pack.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L87">mdk-core/src/core/Pack.ts:87</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="cacheFile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> cache<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">cache<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L119">mdk-core/src/core/Pack.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L75">mdk-core/src/core/Pack.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>file: <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="cachePack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> cache<wbr>Pack</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">cache<wbr>Pack<span class="tsd-signature-symbol">(</span>pack<span class="tsd-signature-symbol">: </span><a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L62">mdk-core/src/core/Pack.ts:62</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pack: <a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="existFile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> exist<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">exist<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L68">mdk-core/src/core/Pack.ts:68</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>file: <a href="FileAbstract.html" class="tsd-signature-type" data-tsd-kind="Class">FileAbstract</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="existPack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> exist<wbr>Pack</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">exist<wbr>Pack<span class="tsd-signature-symbol">(</span>pack<span class="tsd-signature-symbol">: </span><a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L65">mdk-core/src/core/Pack.ts:65</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pack: <a href="Pack.html" class="tsd-signature-type" data-tsd-kind="Class">Pack</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -388,7 +441,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hans000/mdk/blob/a9d98bd/packages/mdk-core/src/core/Pack.ts#L39">mdk-core/src/core/Pack.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/hans000/mdk/blob/b62fdd9/packages/mdk-core/src/core/Pack.ts#L53">mdk-core/src/core/Pack.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,22 +488,16 @@
 								<a href="Pack.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="Pack.html#_fileMap" class="tsd-kind-icon">#file<wbr>Map</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="Pack.html#_list" class="tsd-kind-icon">#list</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="Pack.html#_mcmeta" class="tsd-kind-icon">#mcmeta</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="Pack.html#_packname" class="tsd-kind-icon">#packname</a>
+								<a href="Pack.html#_options" class="tsd-kind-icon">#options</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="Pack.html#_scope" class="tsd-kind-icon">#scope</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="Pack.html#isModule" class="tsd-kind-icon">is<wbr>Module</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="Pack.html#list" class="tsd-kind-icon">list</a>
+								<a href="Pack.html#mcmeta" class="tsd-kind-icon">mcmeta</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="Pack.html#packname" class="tsd-kind-icon">packname</a>
@@ -471,7 +518,19 @@
 								<a href="Pack.html#createMcmeta" class="tsd-kind-icon">create<wbr>Mcmeta</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="Pack.html#exist" class="tsd-kind-icon">exist</a>
+								<a href="Pack.html#load" class="tsd-kind-icon">load</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Pack.html#cacheFile" class="tsd-kind-icon">cache<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Pack.html#cachePack" class="tsd-kind-icon">cache<wbr>Pack</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Pack.html#existFile" class="tsd-kind-icon">exist<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Pack.html#existPack" class="tsd-kind-icon">exist<wbr>Pack</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="Pack.html#getPackVersion" class="tsd-kind-icon">get<wbr>Pack<wbr>Version</a>
@@ -493,15 +552,14 @@
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
