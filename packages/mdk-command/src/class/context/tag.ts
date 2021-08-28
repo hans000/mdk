@@ -15,7 +15,14 @@ export class Tag extends ContextAbstract {
     }
 
     private getTagname(tagName: string) {
-        return this.#scope ? `${this.#scope}_${tagName}` : tagName
+        return (
+            tagName.startsWith('_')
+                ? tagName
+                : this.#scope
+                    ? `${this.#scope}_${tagName}`
+                    : tagName
+            
+        )
     }
     /**
      * 为该实体创建一个新的标签。

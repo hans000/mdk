@@ -59,7 +59,13 @@ export class Objective {
         
         const file = useFile()
 
-        name = file.context.scope ? `${file.context.scope}_${name}` : name
+        name = (
+            name.startsWith('_')
+                ? name
+                : file.context.scope
+                    ? `${file.context.scope}_${name}`
+                    : name
+        )
         this.#name = name
         this.#criterion = criterion as Criteria
         this.#displayName = displayName
