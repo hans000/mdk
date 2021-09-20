@@ -1,5 +1,6 @@
 {
     "code-runner.executorMap": {
         "typescript": "npx cross-env __DEV__=null ts-node -T -r tsconfig-paths/register",
-    }
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

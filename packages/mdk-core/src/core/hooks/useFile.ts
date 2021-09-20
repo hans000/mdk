@@ -13,7 +13,7 @@ export function setFile(file: FileAbstract<any>) {
 /**
  * 获取当前file对象
  */
-export function useFile() {
+export function useFile(): FileAbstract<any> {
     if (!__ActiveFile && process.env.__DEV__) {
         __ActiveFile = __MDK__DEV__.file
     }

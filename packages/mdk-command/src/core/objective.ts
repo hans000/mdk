@@ -1,5 +1,5 @@
 import { scoreboard } from "@/function"
-import { Criteria, Selector, useFile, OperationType, LiteralType, JText, TextToken, usePack } from "mdk-core/src"
+import { Criteria, Selector, useFile, OperationType, LiteralType, JText, TextToken } from "mdk-core/src"
 import { ContainerExpection } from "mdk-core/src/expection"
 
 const __objectives = new Map<string, Objective>()
@@ -10,21 +10,30 @@ export type ObjectiveProps = {
     displayName?: string
 }
 
+const __DEV__ = process.env.__DEV__
+
 export class Objective {
     #name: string
     #criterion: Criteria
     #displayName: string
     #selector: Selector
 
+    /**
+     * **commands** /scoreboard objectives list
+     */
     public static list() {
         const file = useFile()
         file.add(scoreboard.objectives.list())
     }
-
+    /**
+     * **commands** /scoreboard objectives remove
+     */
     public static remove(objective: LiteralType<Objective>) {
-        const name = typeof objective === 'string' ? objective : objective.name 
-        if (! Objective.query(name)) {
-            throw ContainerExpection(`${name} is not exist in objectives`)
+        const name = typeof objective === 'string' ? objective : objective.name
+        if (! __DEV__) {
+            if (! Objective.query(name)) {
+                throw ContainerExpection('this `', name, '` objective is not exist in objectives')
+            }
         }
         const file = useFile()
         file.add(scoreboard.objectives.remove(name))
@@ -32,8 +41,10 @@ export class Objective {
 
     public static setdisplay(slot: string, objective?: LiteralType<Objective>) {
         const name = typeof objective === 'string' ? objective : objective.name 
-        if (! Objective.query(name)) {
-            throw ContainerExpection(`${name} is not exist in objectives`)
+        if (! __DEV__) {
+            if (! Objective.query(name)) {
+                throw ContainerExpection(`${name} is not exist in objectives`)
+            }
         }
         const file = useFile()
         file.add(scoreboard.objectives.setdisplay(slot, name))
@@ -41,8 +52,10 @@ export class Objective {
 
     public static modify(objective: LiteralType<Objective>, displayName: LiteralType<TextToken[]>) {
         const name = typeof objective === 'string' ? objective : objective.name 
-        if (! Objective.query(name)) {
-            throw ContainerExpection(`${name} is not exist in objectives`)
+        if (! __DEV__) {
+            if (! Objective.query(name)) {
+                throw ContainerExpection(`${name} is not exist in objectives`)
+            }
         }
         const file = useFile()
         file.add(scoreboard.objectives.modify(name, JText.format(displayName)))
