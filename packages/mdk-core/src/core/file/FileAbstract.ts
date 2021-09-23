@@ -128,6 +128,7 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
     public toString() {
         this.load()
         const context = usePack()
+        context.add(this)
         let namespace = this.namespace
             ? this.namespace
             : context.isModule
