@@ -1,9 +1,10 @@
-import { File, OperationType, Selector } from 'mdk-core';
-import { ScoreRange, Dimension, StoreOption, AnchorOption } from 'mdk-nbt';
-import { Logic, IBlockState } from "./Logic";
-import { StoreLogic } from "./StoreLogic";
+import { File, LiteralUnion, Selector } from 'mdk-core';
+import { Dimension, AnchorOption } from 'mdk-nbt';
+import { Logic, ConditionFn } from "./Logic";
+import { StoreFn, StoreLogic } from "./StoreLogic";
 import { CommandAbstract } from "mdk-core";
-import * as _ from '../../../function'
+
+export type SwizzleType = 'x' | 'y' | 'z' | 'xy' | 'xz' | 'yz' | 'xyz'
 
 export class Execute extends CommandAbstract {
 
@@ -12,94 +13,65 @@ export class Execute extends CommandAbstract {
     }
 
     //#region 指令相关
-    public ifBlock(blockID = 'air', axis = '~ ~ ~', blockState?: IBlockState) {
-        this.result.add('if')
-        return new Logic(this).block(blockID, axis, blockState)
-    }
-    public unlessBlock(blockID = 'air', axis = '~ ~ ~', blockState?: IBlockState) {
-        this.result.add('unless')
-        return new Logic(this).block(blockID, axis, blockState)
-    }
-    public ifBlocks() {
-        this.result.add('if')
-        return new Logic(this).blocks()
-    }
-    public unlessBlocks() {
-        this.result.add('unless')
-        return new Logic(this).blocks()
-    }
-    public ifScore(target: string, objective: string, source: string, srouceObjective: string, operation: OperationType) {
-        this.result.add('if')
-        return new Logic(this).score(target, objective, source, srouceObjective, operation)
-    }
-    public unlessScore(target: string, objective: string, source: string, srouceObjective: string, operation: OperationType) {
-        this.result.add('unless')
-        return new Logic(this).score(target, objective, source, srouceObjective, operation)
-    }
-    public ifScoreMatches(range: ScoreRange): Execute;
-    public ifScoreMatches(target: string, range: ScoreRange): Execute;
-    public ifScoreMatches(a: any, b?: ScoreRange) {
-        this.result.add('if')
-        return new Logic(this).scoreMatches(a, b)
-    }
-    public unlessScoreMatches(range: ScoreRange): Execute;
-    public unlessScoreMatches(target: string, range: ScoreRange): Execute;
-    public unlessScoreMatches(a: any, b?: ScoreRange) {
-        this.result.add('unless')
-        return new Logic(this).scoreMatches(a, b)
-    }
-    public in(dimension: Dimension = 'overworld') {
-        this.result.add(`in ${dimension}`)
-        return this
-    }
-    public store(option: StoreOption = 'result') {
-        this.result.add(`store ${option}`)
-        return new StoreLogic(this)
-    }
-    public rotatedEntity(target?: string) {
-        target = target ? target : '@s'
-        this.result.add(`rotated as ${target}`)
-        return this
-    }
-    public rotated(y: number, x: number) {
-        this.result.add(`rotated ${y} ${x}`)
-        return this
-    }
-    public positioned(axis: string) {
-        this.result.add(`positioned ${axis}`)
-        return this
-    }
-    public positionedEntity(target: string) {
-        target = target ? target : '@s'
-        this.result.add(`positioned as ${target}`)
-        return this
-    }
-    public align(axis: string = 'xyz') {
-        this.result.add(`align ${axis}`)
+    public align(swizzle: SwizzleType = 'xyz') {
+        this.result.add(`align ${swizzle}`)
         return this
     }
     public anchored(type: AnchorOption = 'feet') {
         this.result.add(type);
         return this
     }
-    public as(target?: string) {
-        target = target ? target : '@s'
-        this.result.add(`as ${target}`)
+    public as(target: string | Selector = '@s') {
+        this.result.add(`as ${target.toString()}`)
         return this
     }
-    public at(target?: string) {
-        target = target ? target : '@s'
-        this.result.add(`at @s`)
+    public at(target: string | Selector = '@s') {
+        this.result.add(`at ${target.toString()}`)
         return this
     }
-    public facing(location: string) {
+    public facing(location: string = '~ ~ ~') {
         this.result.add(`facing ${location}`)
         return this
     }
-    public facingEntity(target: string, anchorType: AnchorOption = 'feet') {
-        target = target ? target : '@s'
-        this.result.add(`facing entity ${target} ${anchorType}`)
+    public facingEntity(target: string | Selector = '@s', anchorType: AnchorOption = 'feet') {
+        this.result.add(`facing entity ${target.toString()} ${anchorType}`)
         return this
+    }
+    public in(dimension: LiteralUnion<Dimension, string> = 'overworld') {
+        this.result.add(`in ${dimension}`)
+        return this
+    }
+    public positioned(coordicate: string = '~ ~ ~') {
+        this.result.add(`positioned ${coordicate}`)
+        return this
+    }
+    public positionedEntity(target: string | Selector = '@s') {
+        this.result.add(`positioned as ${target.toString()}`)
+        return this
+    }
+    public rotated(y: number, x: number) {
+        this.result.add(`rotated ${y} ${x}`)
+        return this
+    }
+    public rotatedEntity(target: string | Selector = '@s') {
+        this.result.add(`rotated as ${target.toString()}`)
+        return this
+    }
+    public if(fn: ConditionFn) {
+        this.result.add('if')
+        return fn(new Logic(this))
+    }
+    public unless(fn: ConditionFn) {
+        this.result.add('unless')
+        return fn(new Logic(this))
+    }
+    public storeResult(fn: StoreFn) {
+        this.result.add(`store result`)
+        return fn(new StoreLogic(this))
+    }
+    public storeSuccess(fn: StoreFn) {
+        this.result.add(`store success`)
+        return fn(new StoreLogic(this))
     }
     public run(cmd: string) {
         this.context.add(`${this.result} run ${cmd}`)

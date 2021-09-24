@@ -9,7 +9,7 @@ export default class StoreLogic {
         this.#context = context;
     }
    
-    public score(scoreName: string, selector = 'mdk-core') {
+    public score(scoreName: string, selector = '@s') {
         this.#context.add(`score ${selector} ${scoreName}`);
         return this.#context;
     }
@@ -26,7 +26,7 @@ export default class StoreLogic {
         return this.#context;
     }
     
-    public entity(path: string, selector = 'mdk-core', value?: ValueType, rate?: number) {
+    public entity(path: string, selector = '@s', value?: ValueType, rate?: number) {
         const textObj = this.#context
         textObj.add('entity').add(selector).add(path)
         if (value) {

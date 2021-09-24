@@ -49,8 +49,7 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
     public get tagNamespace() { return this.#tagNamespace }
  
     /**
-     * 添加内容
-     * @param value 内容
+     * 添加注释
      */
     public addComment(value: string | string[]) {
         const arr = Array.isArray(value) ? value : [value]

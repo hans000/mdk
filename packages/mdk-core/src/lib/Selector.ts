@@ -103,6 +103,10 @@ export class Selector {
 
     public unexacted() { this.#exact = false }
 
+    /**
+     * 格式化选择器
+     * @param objectived 是否启用objective
+     */
     public toString(objectived = false): string {
         if (objectived) {
             return this.objective.toString(this.#exact)

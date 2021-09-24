@@ -1,10 +1,10 @@
-import { formatMCParams, formatScoreRange } from 'mdk-core';
-import { ScoreRange } from 'mdk-nbt';
+import { formatMCParams, formatScoreRange, OperationType, Selector } from 'mdk-core';
+import { BlockEntityState, ScoreRange } from 'mdk-nbt';
+import { BlockItemId } from '../../../../../mdk-nbt/dist/item/__';
 import { Execute } from './Execute';
 
-export interface IBlockState {
-    [state: string]: string | number
-}
+export type ConditionFn = (context: Logic) => Execute
+
 export class Logic {
     readonly #context: Execute;
 
@@ -12,39 +12,32 @@ export class Logic {
         this.#context = context;
     }
 
-    public block(blockID = 'air', axis = '~ ~ ~', blockState?: IBlockState) {
-        this.#context.getTextObject().add(`block ${axis} ${blockID}[${formatMCParams(blockState)}]`)
+    public block(blockID: BlockItemId = 'air', coordicate = '~ ~ ~', blockState?: BlockEntityState) {
+        this.#context.getTextObject().add(`block ${coordicate} ${blockID}[${formatMCParams(blockState as any)}]`)
         return this.#context;
     }
-    public blocks() {
-        this.#context.getTextObject().add('blocks')
+    public blocks(start: string, end: string, dest: string, mode: 'all' | 'masked' = 'all') {
+        this.#context.getTextObject().add('blocks', start, end, dest, mode)
         return this.#context;
     }
-    public data() {
-        this.#context.getTextObject().add('data');
+    public dataBlock(pos: string, path: string) {
+        this.#context.getTextObject().add('data', 'block', pos, path);
+        return this.#context;
+    }
+    public dataEntity(target: string | Selector, path: string) {
+        this.#context.getTextObject().add('data', 'entity', target.toString(), path);
+        return this.#context;
+    }
+    public dataStorage(source: string, path: string) {
+        this.#context.getTextObject().add('data', 'storage', source, path);
         return this.#context;
     }
     /**
      * 探测实体
      * @param target 选择器
      */
-    public entity(target?: string) {
-        target = target ? target : 'mdk-core'
-        this.#context.getTextObject().add(`entity ${target}`)
-        return this.#context;
-    }
-    /**
-     * 探测分数
-     */
-    public score(target: string, targetObjective: string, source: string, srouceObjective: string, operation: string) {
-        this.#context.getTextObject().add(`score ${target} ${targetObjective} ${operation} ${source} ${srouceObjective}`)
-        return this.#context;
-    }
-    /**
-     * 探测分数
-     */
-    public scoreMatches(target: string, range: ScoreRange) {
-        this.#context.getTextObject().add(`score ${target} matches ${formatScoreRange(range)}`)
+    public entity(target: string | Selector = '@s') {
+        this.#context.getTextObject().add(`entity ${target.toString()}`)
         return this.#context;
     }
     /**
@@ -53,6 +46,20 @@ export class Logic {
      */
     public predicate(name: string) {
         this.#context.getTextObject().add(`predicate ${name}`)
+        return this.#context;
+    }
+    /**
+     * 探测分数
+     */
+    public score(target: string | Selector, targetObjective: string, source: string, srouceObjective: string, operation: OperationType) {
+        this.#context.getTextObject().add(`score ${target.toString()} ${targetObjective} ${operation} ${source} ${srouceObjective}`)
+        return this.#context;
+    }
+    /**
+     * 探测分数
+     */
+    public scoreMatches(target: string | Selector, range: ScoreRange) {
+        this.#context.getTextObject().add(`score ${target.toString()} matches ${formatScoreRange(range)}`)
         return this.#context;
     }
 }
