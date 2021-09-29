@@ -1,5 +1,5 @@
 import { File } from "@core/index";
-import { setFile, usePack } from "../hooks";
+import { setFile, setPack, usePack } from "../hooks";
 import { ToStringAbstract, LineInfo } from '@model/index'
 import { emit } from "../plugin";
 import { __MDK__DEV__ } from "@dev/index";
@@ -8,6 +8,7 @@ import { LiteralFuncType } from "@typings/tool";
 import path from "@utils/path";
 import { DataObject } from "@typings/base";
 import { Pack } from "@core/Pack";
+import { ContainerExpection } from "@/expection";
 
 export type FileType =
     | 'functions'
@@ -63,7 +64,10 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
    
     /** * 获取命名空间 */
     public get namespace() {
-        const context = process.env.__DEV__ ? __MDK__DEV__.pack : this.context
+        const context = this.context ? this.context : process.env.__DEV__ ? __MDK__DEV__.pack : null
+        if (! context) {
+            throw ContainerExpection('`', this.#options.filename, '` should be used Pack context')
+        }
         const { namespace } = this.#options
         return (
             namespace
@@ -92,8 +96,9 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
     }
   
     public load() {
-        setFile(this)
         if (this.#data === null) {
+            setFile(this)
+            setPack(this.context)
             const data = this.#options.render(this) || {}
             this.#data = data as D
         }
@@ -101,7 +106,6 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
 
     /** * 获取全路径 */
     public get fullname() {
-
         const ext = this.type === 'functions' ? '.mcfunction' : '.json'
         return path.join(this.namespace, this.type, this.filename + ext)
     }
@@ -128,7 +132,7 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
     public toString() {
         this.load()
         const context = usePack()
-        context.add(this)
+        // context.add(this)
         let namespace = this.namespace
             ? this.namespace
             : context.isModule

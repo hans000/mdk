@@ -167,6 +167,7 @@ export class Pack {
                         context.add(file)
                     }
                 })
+                newTagFile.context = file.context
                 Pack.cacheFile(newTagFile)
             }
         })

@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "env": {
-                "__DEV__": "null"
+                // "__DEV__": "null"
             },
             "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
             "args": [
