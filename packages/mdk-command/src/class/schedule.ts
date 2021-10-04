@@ -13,7 +13,7 @@ export class Schedule extends ContextAbstract {
      * @param time 时间
      * @param mode 模式
      */
-    public functionName(functionName: string, time: string, mode: ScheduleMode) {
+    public functionName(functionName: string, time: string, mode: ScheduleMode = 'append') {
         this.context.add(schedule.functionName(functionName, time, mode))
     }
     /**

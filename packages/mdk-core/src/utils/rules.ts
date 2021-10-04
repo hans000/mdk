@@ -24,5 +24,5 @@ export function isValidPathName(filename: string) {
  * @param filename 文件名
  */
 export function isValidDeclareName(filename: string) {
-    return /^([_a-z\d\-\.]+:)?([_a-z\d\-\.\/])+$/.test(filename)
+    return /^([_a-z\d\-\.]+:)?([_a-z\d\-\.\/]+)$/.test(filename)
 }

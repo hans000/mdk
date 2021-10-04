@@ -6,6 +6,7 @@ import { emit } from "../../plugin"
 import { FileAbstract, FileAbstractOptions, FileInfo } from "../FileAbstract"
 import { LiteralFuncType } from "@typings/tool"
 import { DataObject } from "@typings/base"
+import { popFile, usePack } from "@core/hooks"
 
 export type RecipeType =
     | 'crafting_shaped'     /** 有序合成 */
@@ -68,8 +69,21 @@ export abstract class RecipeAbstract<T extends RecipeType, D extends DataObject>
         this.#list.push(props)
     }
     
+    public override load(cached = true) {
+        if (super.load(cached)) {
+            return false
+        }
+        popFile()
+        return true
+    }
+
+    public getData(cached = true): D {
+        this.load(cached)
+        return this.data
+    }
+    
     public override create(dir: string): FileInfo {
-        super.load()
+        this.load(true)
         const name = path.join(dir, 'data', this.fullname)
         if (!this.#list.length) {
             throw FieldExpection('`' + name + '` data is empty, please add one')
@@ -82,5 +96,16 @@ export abstract class RecipeAbstract<T extends RecipeType, D extends DataObject>
             extra: this.#list,
             description: this.description,
         }
+    }
+     
+    public toString() {
+        this.load()
+        const context = usePack()
+        let namespace = this.namespace
+            ? this.namespace
+            : context.isModule
+                ? context.packname
+                : 'minecraft'
+        return `${namespace}:${this.filename}`
     }
 }

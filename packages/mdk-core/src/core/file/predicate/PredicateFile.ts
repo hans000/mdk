@@ -4,7 +4,7 @@ import path from '@utils/path';
 import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
 import { ObjectMap } from '@typings/tool';
-import { LoottableFile } from '@core/index';
+import { LoottableFile, popFile, usePack } from '@core/index';
 import { DataObject } from '@typings/base';
 
 type EntityTargetType = 'this' | 'killer' | 'killer_player'
@@ -38,8 +38,24 @@ export class PredicateFile<D extends DataObject> extends FileAbstract<D> {
         this.#list = [item]
     }
     
+    public override load(cached = true) {
+        if (super.load(cached)) {
+            return false
+        }
+        popFile()
+        return true
+    }
+
+    public getData(cached = true): D {
+        if (cached) {
+            usePack().add(this)
+        }
+        this.load()
+        return this.data
+    }
+    
     public override create(dir: string): FileInfo {
-        super.load()
+        this.load()
         const name = path.join(dir, this.fullname)
         if (!this.#list.length) {
             throw FieldExpection('`' + name + '` data is empty, please add one')
@@ -52,6 +68,17 @@ export class PredicateFile<D extends DataObject> extends FileAbstract<D> {
             extra: this.#list,
             description: this.description,
         }
+    }
+     
+    public toString() {
+        this.load()
+        const context = usePack()
+        let namespace = this.namespace
+            ? this.namespace
+            : context.isModule
+                ? context.packname
+                : 'minecraft'
+        return `${namespace}:${this.filename}`
     }
 }
 

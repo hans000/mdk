@@ -1,21 +1,26 @@
 import { FileAbstract } from "@core/file"
 import { __MDK__DEV__ } from "@dev/index"
 
-let __ActiveFile: FileAbstract<any> = null
+let __ActiveFileStackStack: FileAbstract<any>[] = []
 
 /**
- * 设置当前file对象
+ * 缓存file对象
  */
-export function setFile(file: FileAbstract<any>) {
-    __ActiveFile = file
+export function pushFile(file: FileAbstract<any>) {
+    __ActiveFileStackStack.push(file)
+}
+
+export function popFile() {
+    __ActiveFileStackStack.pop()
 }
 
 /**
  * 获取当前file对象
  */
 export function useFile(): FileAbstract<any> {
-    if (!__ActiveFile && process.env.__DEV__) {
-        __ActiveFile = __MDK__DEV__.file
+    const stack = __ActiveFileStackStack
+    if (!stack.length && process.env.__DEV__) {
+        stack.push(__MDK__DEV__.file)
     }
-    return __ActiveFile
+    return stack[stack.length - 1]
 }

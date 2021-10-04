@@ -189,10 +189,7 @@ export class Pack {
                 continue
             }
             
-            __result.push({
-                ...file.create(this.packname),
-                // name: fullname,
-            })
+            __result.push(file.create(this.packname))
         }
         
         this.createFunctionTagFile(tagList)
@@ -200,10 +197,7 @@ export class Pack {
         // 添加tag json
         for (const [fullname, file] of __FileMap) {
             if (file instanceof TagFile) {
-                __result.push({
-                    ...file.create(this.packname),
-                    // name: fullname,
-                })
+                __result.push(file.create(this.packname))
             }
         }
 

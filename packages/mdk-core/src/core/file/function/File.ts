@@ -6,6 +6,7 @@ import { LiteralUnion } from '@typings/tool';
 import { Pack } from "@core/Pack";
 import { DataObject } from '@typings/base';
 import { FieldExpection } from '@/expection';
+import { popFile, usePack } from '@core/hooks';
 
 function getFileInfoType(value: string) {
     const prefix = value.split(' ')[0]
@@ -77,11 +78,14 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
         }
     }
 
-    public override load() {
-        super.load()
+    public override load(cached = true) {
+        if (! super.load(cached)) {
+            return false
+        }
+
         const tag = this.#tag
         if (tag) {
-            const match = /^([a-z_]:)?([a-z_][a-z_-\d\/]*[a-z_-\d]*)$/.exec(tag)
+            const match = /^([_a-z\d\-\.]+:)?([_a-z\d\-\.\/]+)$/.exec(tag)
             if (! match) {
                 throw FieldExpection('invalid tag declare `' + tag + '`, cannot contain these chars `< > ? : * | \\`  and the format like `sys:foo/bar`')
             }
@@ -95,6 +99,13 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
             )
             this.#tag = _tag
         }
+        popFile()
+        return true
+    }
+
+    public getData(cached = true): D {
+        this.load(cached)
+        return this.data
     }
   
     public override create(dir: string): FileInfo {
@@ -113,5 +124,16 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
             text: 'function ' + this.toString(),
             extra: this.list,
         }
+    }
+
+    public toString() {
+        this.load()
+        const context = usePack()
+        let namespace = this.namespace
+            ? this.namespace
+            : context.isModule
+                ? context.packname
+                : 'minecraft'
+        return `${namespace}:${this.filename}`
     }
 }

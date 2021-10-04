@@ -1,5 +1,5 @@
 import { scoreboard } from "@/function"
-import { Criteria, Selector, useFile, OperationType, LiteralType, JText, TextToken } from "mdk-core/src"
+import { Criteria, Selector, OperationType, LiteralType, JText, TextToken, useFile } from "mdk-core"
 import { ContainerExpection } from "mdk-core/src/expection"
 
 const __objectives = new Map<string, Objective>()

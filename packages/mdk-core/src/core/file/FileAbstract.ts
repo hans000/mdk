@@ -1,5 +1,5 @@
 import { File } from "@core/index";
-import { setFile, setPack, usePack } from "../hooks";
+import { pushFile, setPack, usePack } from "../hooks";
 import { ToStringAbstract, LineInfo } from '@model/index'
 import { emit } from "../plugin";
 import { __MDK__DEV__ } from "@dev/index";
@@ -81,8 +81,8 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
     /** * 获取类型 */
     public get type() { return this.#options.type }
 
-    /** * 设置命名空间 */
-    // public set namespace(namespace: string) { this.#options.namespace = namespace }
+    /** * 获取自定义数据 */
+    protected get data() { return this.#data }
   
     /** * 获取描述信息 */
     public get description() {
@@ -95,32 +95,39 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
             })
     }
   
-    public load() {
+    /**
+     * 加载数据
+     * @param cached 是否缓存引用的文件，默认true
+     * @returns 返回true表示首次加载
+     */
+    public load(cached: boolean) {
         if (this.#data === null) {
-            setFile(this)
-            setPack(this.context)
+            pushFile(this)
+            let context = usePack()
+            if (this.context && this.context !== context) {
+                setPack(this.context)
+                context = this.context
+            }
+            if (cached) {
+                context.add(this)
+            }
             const data = this.#options.render(this) || {}
             this.#data = data as D
+            return true
         }
+        return false
     }
+  
+    /**
+     * 获取接口数据
+     * @param cached 是否缓存引用的文件，默认true
+     */
+    public abstract getData(cached: boolean): D
 
     /** * 获取全路径 */
     public get fullname() {
         const ext = this.type === 'functions' ? '.mcfunction' : '.json'
         return path.join(this.namespace, this.type, this.filename + ext)
-    }
-  
-    /**
-     * 获取接口数据
-     * @param flag 是否缓存引用的文件，默认true
-     */
-    public getData(flag = true): D {
-        if (flag) {
-            const pack = usePack()
-            pack.add(this)
-        }
-        this.load()
-        return this.#data
     }
  
     /** * 添加项目 */
@@ -128,21 +135,9 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
  
     /** * 生成文件信息 */
     public abstract create(dir: string): FileInfo
- 
-    public toString() {
-        this.load()
-        const context = usePack()
-        // context.add(this)
-        let namespace = this.namespace
-            ? this.namespace
-            : context.isModule
-                ? context.packname
-                : 'minecraft'
-        return `${namespace}:${this.filename}`
-    }
   
     public toJson(): LineInfo {
-        this.load()
+        this.load(true)
         return {
             type: 'unknown',
             text: this.toString(),
