@@ -88,14 +88,12 @@ export class Pack {
         let { packname, scope, modules } = this.#options
 
         if (! isValidSpacename(packname)) {
-            throw FieldExpection('packname `', packname, '` just uses lower chars, digital and - _')
+            throw FieldExpection('packname `', packname, '` just uses lower chars, digital and - _ .')
         }
         
         /**
          * 处理scope
-         * true 启用scope
-         * false 关闭scope
-         * 默认 - 只有
+         * true 启用scope, false 关闭scope, 默认 - 只有
          * 显式赋值
          */
         if (typeof scope === 'string') {

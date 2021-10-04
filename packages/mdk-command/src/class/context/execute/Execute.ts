@@ -76,6 +76,7 @@ export class Execute extends CommandAbstract {
     public run(cmd: string) {
         this.context.add(`${this.result} run ${cmd}`)
         this.result.clear()
+        this.result.add('execute')
     }
     //#endregion
 }

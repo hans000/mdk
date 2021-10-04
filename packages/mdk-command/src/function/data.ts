@@ -11,11 +11,11 @@ const _modifyBlock = {
     fromBlock(targetPos: string, path: string, type: ModifierType, sourcePos: string, sourcePath: string) {
         return revise(`data modify block ${targetPos} ${path} ${type} from block ${sourcePos} ${sourcePath}`)
     },
-    fromEntity(targetPos: string, path: string, type: ModifierType, sourcePos: string, sourcePath: string) {
-        return revise(`data modify block ${targetPos} ${path} ${type} from entity ${sourcePos} ${sourcePath}`)
+    fromEntity(targetPos: string, path: string, type: ModifierType, sourceTarget: string, sourcePath: string) {
+        return revise(`data modify block ${targetPos} ${path} ${type} from entity ${sourceTarget} ${sourcePath}`)
     },
-    fromStorage(targetPos: string, path: string, type: ModifierType, sourcePos: string, sourcePath: string) {
-        return revise(`data modify block ${targetPos} ${path} ${type} from storage ${sourcePos} ${sourcePath}`)
+    fromStorage(targetPos: string, path: string, type: ModifierType, source: string, sourcePath: string) {
+        return revise(`data modify block ${targetPos} ${path} ${type} from storage ${source} ${sourcePath}`)
     },
     value(targetPos: string, path: string, type: ModifierType, nbt: string) {
         return revise(`data modify block ${targetPos} ${path} ${type} value ${nbt}`)
@@ -79,16 +79,16 @@ function getStorage(target: string, path?: string, scale?: number) {
     return revise(`data get storage ${target} ${path} ${scale}`)
 }
 
-function mergeBlock(targetPos: string, path?: string, scale?: number) {
-    return revise(`data merge block ${targetPos} ${path} ${scale}`)
+function mergeBlock(targetPos: string, path?: string) {
+    return revise(`data merge block ${targetPos} ${path}`)
 }
 
-function mergeEntity(target: string, path?: string, scale?: number) {
-    return revise(`data merge entity ${target} ${path} ${scale}`)
+function mergeEntity(target: string, path?: string) {
+    return revise(`data merge entity ${target} ${path}`)
 }
 
-function mergeStorage(target: string, path?: string, scale?: number) {
-    return revise(`data merge storage ${target} ${path} ${scale}`)
+function mergeStorage(target: string, path?: string) {
+    return revise(`data merge storage ${target} ${path}`)
 }
 
 function removeStorage(target: string, path?: string) {

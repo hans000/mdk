@@ -9,10 +9,12 @@ export class CommandText {
         this.#text += text.join(' ') + ' '
         return this
     }
+    
     public clear() {
         this.#text = ''
         return this
     }
+    
     public toString() {
         return this.#text.trim()
     }

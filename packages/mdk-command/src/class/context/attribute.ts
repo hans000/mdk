@@ -24,7 +24,7 @@ export class Attribute extends ContextAbstract {
     }
 
     public add(target: Selector, attribute: string, uuid: string, name: string, value: string, type: AttributeModifier = 'add') {
-        this.context.add(attr.add(target, attribute, name, value, type))
+        this.context.add(attr.add(target, attribute, uuid, name, value, type))
         return this
     }
 

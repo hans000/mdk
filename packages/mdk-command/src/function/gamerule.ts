@@ -20,18 +20,22 @@ export default {
     drowningdamage,
     falldamage,
     firedamage,
+    forgiveDeadPlayers,
+    freezeDamage,
     keepInventory,
     logAdminCommands,
     maxCommandChainLength,
     maxEntityCramming,
     mobGriefing,
     naturalRegeneration,
+    playersSleepingPercentage,
     randomTickSpeed,
     reducedDebugInfo,
     sendCommandFeedback,
     showDeathMessages,
     spawnRadius,
     spectatorsGenerateChunks,
+    universalAnger,
 }
 
 /**
@@ -168,6 +172,20 @@ function firedamage(active: boolean) {
     return `gamerule firedamage ${active}`
 }
 /**
+ * 当被激怒的中立生物的目标玩家死亡时，该生物是否恢复中立状态。
+ * @param active 是否激活
+ */
+function forgiveDeadPlayers(active: boolean) {
+    return `gamerule forgiveDeadPlayers ${active}`
+}
+/**
+ * 玩家是否承受冰冻伤害
+ * @param active 是否激活
+ */
+function freezeDamage(active: boolean) {
+    return `gamerule freezeDamage ${active}`
+}
+/**
  * 玩家死亡后是否保留物品栏物品、经验（死亡时物品不掉落、经验不清空）。
  * @param active 是否激活
  */
@@ -210,6 +228,13 @@ function naturalRegeneration(active: boolean) {
     return `gamerule naturalRegeneration ${active}`
 }
 /**
+ * 设置跳过夜晚所需的入睡玩家所占百分比
+ * @param count 百分比
+ */
+function playersSleepingPercentage(count: int) {
+    return `gamerule playersSleepingPercentage ${count}`
+}
+/**
  * 每游戏刻每区段中随机的方块刻发生的频率（例如植物生长，树叶腐烂等）。为0时禁用随机刻，较高的数字将增大随机刻频率。
  * @param speed 速度
  */
@@ -249,5 +274,12 @@ function spawnRadius(distance: int) {
  * @param active 是否激活
  */
 function spectatorsGenerateChunks(active: boolean) {
-    return `gamerule showDeathMessages ${active}`
+    return `gamerule spectatorsGenerateChunks ${active}`
+}
+/**
+ * 被激怒的中立生物是否攻击附近任何玩家
+ * @param active 是否激活
+ */
+function universalAnger(active: boolean) {
+    return `gamerule universalAnger ${active}`
 }

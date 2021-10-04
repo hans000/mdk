@@ -12,7 +12,7 @@ export class Loot extends ContextAbstract {
         return new Source(this.context, `loot spawn ${location}`)
     }
 
-    public replaceEntity(target: Selector, slot: string, count?: number) {
+    public replaceEntity(target: Selector | string, slot: string, count?: number) {
         return new Source(this.context, `loot replace entity ${target.toString()} ${slot}${count ? ' ' + count : ''}`)
     }
 
@@ -20,7 +20,7 @@ export class Loot extends ContextAbstract {
         return new Source(this.context, `loot replace block ${location} ${slot}${count ? ' ' + count : ''}`)
     }
 
-    public give(target: Selector) {
+    public give(target: Selector | string) {
         return new Source(this.context, `loot give ${target.toString()}`)
     }
 
@@ -32,7 +32,7 @@ export class Loot extends ContextAbstract {
 
 class Source {
     private text = ''
-    #context: File
+    readonly #context: File
 
     constructor(context: File, text: string) {
         this.text = text

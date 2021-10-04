@@ -3,12 +3,12 @@ import { emit } from "@core/index";
 import { Location } from "@lib/index";
 import { ScoreRange, GameMode, EntityId, Entity } from 'mdk-nbt';
 import { ContainerExpection } from '../expection';
-import { SingleArrayResult } from "@typings/tool";
+import { LiteralUnion, SingleArrayResult } from "@typings/tool";
 import { Objective } from "mdk-command";
 
 export function selector(): Selector
 export function selector(name: string): Selector
-export function selector(selector: ISelector): Selector
+export function selector(selector: SelectorProps): Selector
 export function selector(selector?: unknown) {
     return new Selector(selector)
 }
@@ -20,18 +20,15 @@ export class Selector {
     #exact = false;
     #objective: Objective;
     #literal = false;
-    readonly #params: ISelector;
+    readonly #props: SelectorProps;
 
-    constructor()
-    constructor(name: string)
-    constructor(selector: ISelector)
-    constructor(selector?: ISelector | string) {
+    constructor(selector?: SelectorProps | string) {
         if (selector) {
             if (typeof selector === 'string') {
                 this.#literal = true
-                this.#params = { name: selector }
+                this.#props = { name: selector }
             } else {
-                this.#params = selector
+                this.#props = selector
             }
         }
         emit('init', this)
@@ -39,7 +36,7 @@ export class Selector {
 
     public get objective() { return this.#objective }
 
-    public get props() { return this.#params }
+    public get props() { return this.#props }
 
     //#region 选择器格式化
     private arrayHandle<T>(select: SingleArrayResult<T>, key: string) {
@@ -79,7 +76,7 @@ export class Selector {
         scores: this.mapRangeHandle,
     }
 
-    private handle(data: Partial<ISelector>) {
+    private handle(data: Partial<SelectorProps>) {
         return Object.keys(data).reduce((s, k) => {
             s += data[k] == null ? '' : k ? this.mapHandle[k](data[k], k) + ',' : ''
             return s
@@ -116,9 +113,9 @@ export class Selector {
             return '@s'
         }
         if (this.#literal) {
-            return this.#params.name as string
+            return this.#props.name as string
         }
-        const { target, ...rest } = { target: '@s', ...this.#params }
+        const { target, ...rest } = { target: '@s', ...this.#props }
         const params = this.handle(rest).slice(0, -1)
         const reuslt = params ? `${target}[${params}]` : `${target}`
         return reuslt
@@ -126,7 +123,7 @@ export class Selector {
 }
 
 //#region 选择器类型定义
-export interface ISelector {
+export interface SelectorProps {
     /** 目标选择器 */
     target?: TargetSelector;
     /** 坐标 */
@@ -154,7 +151,7 @@ export interface ISelector {
     /** 实体名称 */
     name?: SingleArrayResult<string>;
     /** 实体类型 */
-    type?: SingleArrayResult<EntityId>;
+    type?: SingleArrayResult<LiteralUnion<EntityId, string>>;
     /** 谓词 */
     predicate?: string;
     /** nbt数据标签 */
