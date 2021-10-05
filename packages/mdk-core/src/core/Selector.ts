@@ -5,6 +5,7 @@ import { ScoreRange, GameMode, EntityId, Entity } from 'mdk-nbt';
 import { Objective } from "mdk-command";
 import { ContainerExpection } from "@tools/expection";
 import { SingleArrayResult, LiteralUnion } from "@tools/typings";
+import { useScope } from "@/hooks";
 
 export function selector(): Selector
 export function selector(name: string): Selector
@@ -47,6 +48,14 @@ export class Selector {
         return `${key}=${select}`
     }
 
+    private scopeHandle(select: SingleArrayResult<string>, key: string) {
+        if (Array.isArray(select)) {
+            // 过滤重复项并字符串拼接
+            return Array.from(new Set(select)).reduce((s, v) => s += `${key}=${useScope(v)},`, '').slice(0, -1)
+        }
+        return `${key}=${useScope(select)}`
+    }
+
     private rangeHandle(range: ScoreRange, key: string) { return `${key}=${formatScoreRange(range)}` }
 
     private mapRangeHandle(map: Record<string, ScoreRange>, key: string) {
@@ -65,7 +74,7 @@ export class Selector {
         level: this.rangeHandle,
         x_rotation: this.rangeHandle,
         y_rotation: this.rangeHandle,
-        tag: this.arrayHandle,
+        tag: this.scopeHandle,
         team: this.arrayHandle,
         gamemode: this.arrayHandle,
         name: this.arrayHandle,

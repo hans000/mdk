@@ -1,5 +1,5 @@
 import { scoreboard } from "@/function"
-import { Selector, JText, TextToken, useFile, ContainerExpection, Criteria, LiteralType, OperationType } from "mdk-core"
+import { Selector, JText, TextToken, useFile, ContainerExpection, Criteria, LiteralType, OperationType, wrapScope, useScope } from "mdk-core"
 
 const __objectives = new Map<string, Objective>()
 
@@ -71,26 +71,20 @@ export class Objective {
         
         const file = useFile()
 
-        name = (
-            name.startsWith('_')
-                ? name
-                : file.context.scope
-                    ? `${file.context.scope}_${name}`
-                    : name
-        )
-        this.#name = name
+        const scopename = useScope(name)
+        this.#name = scopename
         this.#criterion = criterion as Criteria
         this.#displayName = displayName
         this.#selector = sel
         
         // 校验
-        if (Objective.query(name)) {
-            throw ContainerExpection('`' + name + '` has existed in objectives')
+        if (Objective.query(scopename)) {
+            throw ContainerExpection('`' + scopename + '` has existed in objectives')
         }
 
-        __objectives.set(name, this)
+        __objectives.set(scopename, this)
         
-        file.add(scoreboard.objectives.add(name, criterion as Criteria, displayName))
+        file.add(scoreboard.objectives.add(scopename, criterion as Criteria, displayName))
     }
 
     public get name() { return this.#name }
@@ -113,6 +107,7 @@ export class Objective {
     /** -= */
     public remove(...sources: Objective[]) { return this.operation('-=', sources) }
     
+    /** *= */
     public multiple(...sources: Objective[]) { return this.operation('*=', sources) }
     
     /** /= */

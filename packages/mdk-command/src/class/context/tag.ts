@@ -1,4 +1,4 @@
-import { File, Selector, ContextAbstract, ContainerExpection } from 'mdk-core'
+import { File, Selector, ContextAbstract, ContainerExpection, wrapScope, useScope } from 'mdk-core'
 import { tag } from "../../function";
 
 const registTags = new Set()
@@ -13,34 +13,25 @@ export class Tag extends ContextAbstract {
         this.#scope = context.context.scope
     }
 
-    private getTagname(tagName: string) {
-        return (
-            tagName.startsWith('_')
-                ? tagName
-                : this.#scope
-                    ? `${this.#scope}_${tagName}`
-                    : tagName
-            
-        )
-    }
     /**
      * 为该实体创建一个新的标签。
-     * @param tagName 标签名
+     * @param tagname 标签名
      */
-    public add(tagName: string) {
-        const newTagName = this.getTagname(tagName)
-        if (registTags.has(newTagName)) {
-            throw ContainerExpection('this `', newTagName, '` tag has already existed')
+    public add(tagname: string) {
+        const scopeTagname = useScope(tagname)
+        if (registTags.has(scopeTagname)) {
+            throw ContainerExpection('this `', scopeTagname, '` tag has already existed')
         }
-        registTags.add(newTagName)
-        this.context.add(tag.add(this.#target, newTagName))
+        registTags.add(scopeTagname)
+        this.context.add(tag.add(this.#target, scopeTagname))
     }
     /**
      * 移除该实体所拥有的一个标签。
-     * @param tagName 标签名
+     * @param tagname 标签名
      */
-    public remove(tagName: string) {
-        this.context.add(tag.remove(this.#target, tagName))
+    public remove(tagname: string) {
+        const scopeTagname = useScope(tagname)
+        this.context.add(tag.remove(this.#target, scopeTagname))
     }
     /**
      * 列出该实体拥有的全部标签。
