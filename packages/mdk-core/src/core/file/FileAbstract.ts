@@ -137,9 +137,9 @@ export abstract class FileAbstract<D extends DataObject = {}> implements ToStrin
   
     public toJson(): LineInfo {
         this.load(true)
-        return {
-            type: 'unknown',
-            text: this.toString(),
-        }
+        return new LineInfo(
+            'unknown',
+            this.toString(),
+        )
     }
 }

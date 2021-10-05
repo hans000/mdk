@@ -16,6 +16,7 @@ export class Time extends ContextAbstract {
      */
     public add(time: int | TimeScale) {
         this.context.add(timex.add(time))
+        return this
     }
 
     /**
@@ -24,15 +25,17 @@ export class Time extends ContextAbstract {
      */
     public query(queryType: QueryType) {
         this.context.add(timex.query(queryType))
+        return this
     }
 
     /**
      * 设置时间
      * @param time 时间
      */
-    public set(time: int): void
-    public set(time: int, unit: TimeUnit): void
+    public set(time: int): Time
+    public set(time: int, unit: TimeUnit): Time
     public set(time: int, unit?: TimeUnit) {
         this.context.add(timex.set(time, unit))
+        return this
     }
 }

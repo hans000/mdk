@@ -1,5 +1,5 @@
 import { scoreboard } from "@/function"
-import { Selector, JText, TextToken, useFile, ContainerExpection, Criteria, LiteralType, OperationType, wrapScope, useScope } from "mdk-core"
+import { Selector, JText, TextToken, useFile, ContainerExpection, Criteria, LiteralType, OperationType, useScope, ContextAbstract, File } from "mdk-core"
 
 const __objectives = new Map<string, Objective>()
 
@@ -11,7 +11,7 @@ export type ObjectiveProps = {
 
 const __DEV__ = process.env.__DEV__
 
-export class Objective {
+export class Objective extends ContextAbstract {
     #name: string
     #criterion: Criteria
     #displayName: string
@@ -66,7 +66,9 @@ export class Objective {
     /** * 添加此积分项 */
     public static add(objective: string) { __objectives.set(objective, new Objective(objective)) }
 
-    constructor(props: LiteralType<ObjectiveProps>, sel: Selector = null) {
+    constructor(props: LiteralType<ObjectiveProps>, sel: Selector = null)  {
+        super(useFile() as File)
+
         let { name, criterion, displayName } = typeof props === 'string' ? { name: props, criterion: 'dummy', displayName: '' } : props
         
         const file = useFile()
@@ -96,8 +98,7 @@ export class Objective {
     public get selector() { return this.#selector }
 
     private operation(operarion: OperationType, sources: Objective[]) {
-        const file = useFile()
-        sources.forEach(s => file.add(`scoreboard players operation ${this.toString()} ${operarion} ${s.toString()}`))
+        sources.forEach(s => this.context.add(`scoreboard players operation ${this.toString()} ${operarion} ${s.toString()}`))
         return this
     }
 
@@ -126,7 +127,9 @@ export class Objective {
     public swap(...sources: Objective[]) { return this.operation('><', sources) }
 
     public toString(exacted = false) {
-        exacted && this.#selector.exacted()
+        if (exacted) {
+            this.#selector.exacted()
+        }
         return `${this.#selector.toString()} ${this.name}`
     }
 }

@@ -10,21 +10,23 @@ export class Experience extends ContextAbstract {
         super(context)
     }
 
-    public add(player: Selector, count: int): void
-    public add(player: Selector, count: int, type: XpType): void
+    public add(player: Selector, count: int): Experience
+    public add(player: Selector, count: int, type: XpType): Experience
     public add(player: Selector, count: int, type?: XpType) {
         this.context.add(experience.add(player, count, type))
+        return this
     }
 
-    public set(player: Selector, count: int): void
-    public set(player: Selector, count: int, type: XpType): void
+    public set(player: Selector, count: int): Experience
+    public set(player: Selector, count: int, type: XpType): Experience
     public set(player: Selector, count: int, type?: XpType) {
         this.context.add(experience.set(player, count, type))
+        return this
     }
-    public query(player: Selector): void
-    public query(player: Selector, type: XpType): void
+    public query(player: Selector): Experience
+    public query(player: Selector, type: XpType): Experience
     public query(player: Selector, type?: XpType) {
         this.context.add(experience.query(player, type))
+        return this
     }
-
 }

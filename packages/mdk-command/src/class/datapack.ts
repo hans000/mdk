@@ -9,13 +9,16 @@ export class Datapack extends ContextAbstract {
     
     public disable(packname: string) {
         this.context.add(datapack.disable(packname))
+        return this
     }
     
     public enable(packname: string) {
         this.context.add(datapack.enable(packname))
+        return this
     }
 
     public list() {
         this.context.add(datapack.list())
+        return this
     }
 }

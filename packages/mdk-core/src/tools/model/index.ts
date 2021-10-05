@@ -1,6 +1,5 @@
 export * from './CommandAbstract'
 export * from './CommandText'
 export * from './ContextAbstract'
-export * from './ToJsonAbstract'
 export * from './ToStringAbstract'
 export * from './LineInfo'

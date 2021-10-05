@@ -12,6 +12,7 @@ export class GameRule extends ContextAbstract {
      */
     public announceAdvancements(active = true) {
         this.context.add(gamerule.announceAdvancements(active))
+        return this
     }
 
     /**
@@ -19,6 +20,7 @@ export class GameRule extends ContextAbstract {
      */
      public commandBlockOutput(active = true) {
         this.context.add(gamerule.commandBlockOutput(active))
+        return this
     }
 
     /**
@@ -26,6 +28,7 @@ export class GameRule extends ContextAbstract {
      */
     public disableElytraMovementCheck(active = false) {
         this.context.add(gamerule.disableElytraMovementCheck(active))
+        return this
     }
 
     /**
@@ -33,6 +36,7 @@ export class GameRule extends ContextAbstract {
      */
     public disableRaids(active = false) {
         this.context.add(gamerule.disableRaids(active))
+        return this
     }
 
     /**
@@ -40,6 +44,7 @@ export class GameRule extends ContextAbstract {
      */
     public doDaylightCycle(active = true) {
         this.context.add(gamerule.doDaylightCycle(active))
+        return this
     }
 
     /**
@@ -47,6 +52,7 @@ export class GameRule extends ContextAbstract {
      */
     public doEntityDrops(active = true) {
         this.context.add(gamerule.doEntityDrops(active))
+        return this
     }
 
     /**
@@ -54,6 +60,7 @@ export class GameRule extends ContextAbstract {
      */
     public doFireTick(active = true) {
         this.context.add(gamerule.doFireTick(active))
+        return this
     }
 
     /**
@@ -61,6 +68,7 @@ export class GameRule extends ContextAbstract {
      */
     public doInsomnia(active = true) {
         this.context.add(gamerule.doInsomnia(active))
+        return this
     }
 
     /**
@@ -68,6 +76,7 @@ export class GameRule extends ContextAbstract {
      */
     public doImmediateRespawn(active = false) {
         this.context.add(gamerule.doImmediateRespawn(active))
+        return this
     }
 
     /**
@@ -75,6 +84,7 @@ export class GameRule extends ContextAbstract {
      */
     public doLimitedCrafting(active = false) {
         this.context.add(gamerule.doLimitedCrafting(active))
+        return this
     }
 
     /**
@@ -82,6 +92,7 @@ export class GameRule extends ContextAbstract {
      */
     public doMobLoot(active = true) {
         this.context.add(gamerule.doMobLoot(active))
+        return this
     }
 
     /**
@@ -89,6 +100,7 @@ export class GameRule extends ContextAbstract {
      */
     public doMobSpawning(active = true) {
         this.context.add(gamerule.doMobSpawning(active))
+        return this
     }
 
     /**
@@ -96,6 +108,7 @@ export class GameRule extends ContextAbstract {
      */
     public doPatrolSpawning(active = true) {
         this.context.add(gamerule.doPatrolSpawning(active))
+        return this
     }
 
     /**
@@ -103,6 +116,7 @@ export class GameRule extends ContextAbstract {
      */
     public doTileDrops(active = true) {
         this.context.add(gamerule.doTileDrops(active))
+        return this
     }
 
     /**
@@ -110,6 +124,7 @@ export class GameRule extends ContextAbstract {
      */
     public doTraderSpawning(active = true) {
         this.context.add(gamerule.doTraderSpawning(active))
+        return this
     }
 
     /**
@@ -117,6 +132,7 @@ export class GameRule extends ContextAbstract {
      */
     public doWeatherCycle(active = true) {
         this.context.add(gamerule.doWeatherCycle(active))
+        return this
     }
 
     /**
@@ -124,6 +140,7 @@ export class GameRule extends ContextAbstract {
      */
     public drowningdamage(active = true) {
         this.context.add(gamerule.drowningdamage(active))
+        return this
     }
 
     /**
@@ -131,6 +148,7 @@ export class GameRule extends ContextAbstract {
      */
     public falldamage(active = true) {
         this.context.add(gamerule.falldamage(active))
+        return this
     }
 
     /**
@@ -138,6 +156,7 @@ export class GameRule extends ContextAbstract {
      */
     public firedamage(active = true) {
         this.context.add(gamerule.firedamage(active))
+        return this
     }
 
     /**
@@ -145,13 +164,15 @@ export class GameRule extends ContextAbstract {
      */
     public forgiveDeadPlayers(active = true) {
         this.context.add(gamerule.forgiveDeadPlayers(active))
+        return this
     }
 
     /**
      * 玩家是否承受冰冻伤害，默认true
      */
-     public freezeDamage(active = true) {
+    public freezeDamage(active = true) {
         this.context.add(gamerule.freezeDamage(active))
+        return this
     }
     
     /**
@@ -159,6 +180,7 @@ export class GameRule extends ContextAbstract {
      */
      public keepInventory(active = false) {
         this.context.add(gamerule.keepInventory(active))
+        return this
     }
 
     /**
@@ -166,6 +188,7 @@ export class GameRule extends ContextAbstract {
      */
     public logAdminCommands(active = true) {
         this.context.add(gamerule.logAdminCommands(active))
+        return this
     }
 
     /**
@@ -173,6 +196,7 @@ export class GameRule extends ContextAbstract {
      */
     public maxCommandChainLength(length = 65536) {
         this.context.add(gamerule.maxCommandChainLength(length))
+        return this
     }
 
     /**
@@ -180,6 +204,7 @@ export class GameRule extends ContextAbstract {
      */
     public maxEntityCramming(count = 24) {
         this.context.add(gamerule.maxEntityCramming(count))
+        return this
     }
 
     /**
@@ -187,6 +212,7 @@ export class GameRule extends ContextAbstract {
      */
     public mobGriefing(active = true) {
         this.context.add(gamerule.mobGriefing(active))
+        return this
     }
 
     /**
@@ -194,6 +220,7 @@ export class GameRule extends ContextAbstract {
      */
     public naturalRegeneration(active = true) {
         this.context.add(gamerule.naturalRegeneration(active))
+        return this
     }
 
     /**
@@ -203,6 +230,7 @@ export class GameRule extends ContextAbstract {
      */
      public playersSleepingPercentage(count = 100) {
         this.context.add(gamerule.playersSleepingPercentage(count))
+        return this
     }
 
     /**
@@ -210,6 +238,7 @@ export class GameRule extends ContextAbstract {
      */
     public randomTickSpeed(speed = 3) {
         this.context.add(gamerule.randomTickSpeed(speed))
+        return this
     }
 
     /**
@@ -217,6 +246,7 @@ export class GameRule extends ContextAbstract {
      */
     public reducedDebugInfo(active = false) {
         this.context.add(gamerule.reducedDebugInfo(active))
+        return this
     }
 
     /**
@@ -224,6 +254,7 @@ export class GameRule extends ContextAbstract {
      */
     public sendCommandFeedback(active = true) {
         this.context.add(gamerule.sendCommandFeedback(active))
+        return this
     }
 
     /**
@@ -231,6 +262,7 @@ export class GameRule extends ContextAbstract {
      */
     public showDeathMessages(active = true) {
         this.context.add(gamerule.showDeathMessages(active))
+        return this
     }
 
     /**
@@ -238,6 +270,7 @@ export class GameRule extends ContextAbstract {
      */
     public spawnRadius(distance = 10) {
         this.context.add(gamerule.spawnRadius(distance))
+        return this
     }
 
     /**
@@ -245,6 +278,7 @@ export class GameRule extends ContextAbstract {
      */
     public spectatorsGenerateChunks(active = true) {
         this.context.add(gamerule.spectatorsGenerateChunks(active))
+        return this
     }
 
     /**
@@ -252,5 +286,6 @@ export class GameRule extends ContextAbstract {
      */
     public universalAnger(active = false) {
         this.context.add(gamerule.universalAnger(active))
+        return this
     }
 }

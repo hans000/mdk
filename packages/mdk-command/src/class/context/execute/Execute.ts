@@ -1,4 +1,4 @@
-import { File, LiteralUnion, Selector } from 'mdk-core';
+import { ContextAbstract, File, LineInfo, LiteralUnion, Selector } from 'mdk-core';
 import { Dimension, AnchorOption } from 'mdk-nbt';
 import { Logic, ConditionFn } from "./Logic";
 import { StoreFn, StoreLogic } from "./StoreLogic";
@@ -73,7 +73,10 @@ export class Execute extends CommandAbstract {
         this.result.add(`store success`)
         return fn(new StoreLogic(this))
     }
-    public run(cmd: string) {
+    public run(cmd: string | ContextAbstract) {
+        if (cmd instanceof ContextAbstract) {
+            cmd = (this.context.list.pop() as LineInfo).text
+        }
         this.context.add(`${this.result} run ${cmd}`)
         this.result.clear()
         this.result.add('execute')

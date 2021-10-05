@@ -24,6 +24,7 @@ export class Tag extends ContextAbstract {
         }
         registTags.add(scopeTagname)
         this.context.add(tag.add(this.#target, scopeTagname))
+        return this
     }
     /**
      * 移除该实体所拥有的一个标签。
@@ -32,6 +33,7 @@ export class Tag extends ContextAbstract {
     public remove(tagname: string) {
         const scopeTagname = useScope(tagname)
         this.context.add(tag.remove(this.#target, scopeTagname))
+        return this
     }
     /**
      * 列出该实体拥有的全部标签。
@@ -39,6 +41,7 @@ export class Tag extends ContextAbstract {
      */
     public list(target: Selector) {
         this.context.add(tag.list(target))
+        return this
     }
 }
 

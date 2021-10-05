@@ -17,56 +17,67 @@ export class Scoreboard extends ContextAbstract {
     public add(target: Selector, score: number) {
         const result = `scoreboard players add ${target} ${this.#objective.name} ${score}`
         this.context.add(result)
+        return this
     }
   
     public enable(target: Selector) {
         const result = `scoreboard players enable ${target} ${this.#objective.name}`
         this.context.add(result)
+        return this
     }
   
     public get(target: Selector) {
         const result = `scoreboard players get ${target} ${this.#objective.name}`
         this.context.add(result)
+        return this
     }
   
     public list(target?: Selector) {
         const result = target ? `scoreboard players list ${target}` : `scoreboard players list`
         this.context.add(result)
+        return this
     }
   
     public listObjectives() {
         const result = `scoreboard objectives list`
         this.context.add(result)
+        return this
     }
 
     public operation(target: Selector, operation: string, source: string, sourceObjective: string) {
         const result = `scoreboard players operation ${target} ${this.#objective.name} ${operation} ${source} ${sourceObjective}`
         this.context.add(result)
+        return this
     }
  
     public remove(target: Selector, score: number) {
         const result = `scoreboard players remove ${target} ${this.#objective.name} ${score}`
         this.context.add(result)
+        return this
     }
    
     public reset(target: Selector) {
         const result = `scoreboard players reset ${target} ${this.#objective.name}`
         this.context.add(result)
+        return this
     }
    
     public set(target: Selector, score: number) {
         const result = `scoreboard players set ${target} ${this.#objective.name} ${score}`
         this.context.add(result)
+        return this
     }
  
     public setDisplay(slot: string) {
         const result = `scoreboard objectives setdisplay ${slot} ${this.#objective.name}`
         this.context.add(result)
+        return this
     }
  
     public removeObjectives() {
         const result = `scoreboard objectives remove ${this.#objective.name}`
         this.context.add(result)
+        return this
     }
   
     public modify(displayName: string, ): void;
@@ -78,5 +89,6 @@ export class Scoreboard extends ContextAbstract {
         }
         result = `scoreboard objectives modify ${this.#objective.name} displayname ${a}`
         this.context.add(result)
+        return this
     }
 }

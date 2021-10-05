@@ -12,39 +12,42 @@ export class Weather extends ContextAbstract {
     /**
      * 将天气设为晴天。
      */
-    public clear(): void
+    public clear(): Weather
     /**
      * 将天气设为晴天。
      * @param duration 持续时间
      */
-    public clear(duration: int): void
+    public clear(duration: int): Weather
     public clear(duration?: int) {
         this.context.add(weather.clear(duration))
+        return this
     }
 
     /**
      * 将天气设为雨天（寒冷的生物群系会下雪）。
      */
-    public rain(): void
+    public rain(): Weather
     /**
      * 将天气设为雨天（寒冷的生物群系会下雪）。
      * @param duration 持续时间
      */
-    public rain(duration: int): void
+    public rain(duration: int): Weather
     public rain(duration?: int) {
         this.context.add(weather.rain(duration))
+        return this
     }
 
     /**
      * 将天气设为雷暴雨（寒冷的生物群系会下雷暴雪）。
      */
-    public thunder(): void
+    public thunder(): Weather
     /**
      * 将天气设为雷暴雨（寒冷的生物群系会下雷暴雪）。
      * @param duration 持续时间
      */
-    public thunder(duration: int): void
+    public thunder(duration: int): Weather
     public thunder(duration?: int) {
         this.context.add(weather.thunder(duration))
+        return this
     }
 }

@@ -1,5 +1,5 @@
 import Logic from "./Logic";
-import { Selector, ContainerExpection, CommandText } from 'mdk-core';
+import { Selector, ContainerExpection, CommandText, ContextAbstract, CommandAbstract } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption, BlockEntityState } from 'mdk-nbt';
 import StoreLogic from "./StoreLogic";
 import { Objective } from "@/core/objective";
@@ -143,7 +143,8 @@ export default class Execute extends CommandText {
   
     public run(cmd: string) {
         this.add(`${this} run ${cmd}`)
-        // this.clear()
+        this.clear()
+        this.add('execute')
     }
     //#endregion
 }

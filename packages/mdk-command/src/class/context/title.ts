@@ -14,6 +14,7 @@ export class Title extends ContextAbstract {
      */
     public clear(player: Selector) {
         this.context.add(title.clear(player))
+        return this
     }
     /**
      * 将各选项复位至默认值
@@ -21,6 +22,7 @@ export class Title extends ContextAbstract {
      */
     public reset(player: Selector) {
         this.context.add(title.reset(player))
+        return this
     }
     /**
      * 将文字显示为主标题
@@ -29,6 +31,7 @@ export class Title extends ContextAbstract {
      */
     public title(player: Selector, text: string) {
         this.context.add(title.title(player, text))
+        return this
     }
     /**
      * 将文字显示为副标题
@@ -37,6 +40,7 @@ export class Title extends ContextAbstract {
      */
     public subtitle(player: Selector, text: string) {
         this.context.add(title.subtitle(player, text))
+        return this
     }
     /**
      * 在快捷栏上方显示的标题
@@ -45,6 +49,7 @@ export class Title extends ContextAbstract {
      */
     public actionbar(player: Selector, text: string) {
         this.context.add(title.actionbar(player, text))
+        return this
     }
     /**
      * 设置渐入、保持和渐出的持续时间
@@ -55,5 +60,6 @@ export class Title extends ContextAbstract {
      */
     public times(player: Selector, fadeIn: int, stay: int, fadeOut: int) {
         this.context.add(title.times(player, fadeIn, stay, fadeOut))
+        return this
     }
 }

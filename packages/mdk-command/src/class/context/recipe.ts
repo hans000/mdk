@@ -10,9 +10,11 @@ export class Recipe extends ContextAbstract {
 
     public give(player: Selector, recipeName = '*') {
         this.context.add(recipe.give(player, recipeName))
+        return this
     }
 
     public take(player: Selector, recipeName = '*') {
         this.context.add(recipe.take(player, recipeName))
+        return this
     }
 }

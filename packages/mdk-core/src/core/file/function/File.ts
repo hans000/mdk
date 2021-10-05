@@ -53,7 +53,14 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
      */
     public addComment(value: string | string[]) {
         const arr = Array.isArray(value) ? value : [value]
-        this.#list.push(...arr.map(v => ({
+        const last = this.list[this.list.length - 1]
+        if (last && last.type !== 'comment') {
+            this.list.push({
+                type: 'space-line',
+                text: '',
+            })
+        }
+        this.list.push(...arr.map(v => ({
             type: 'comment',
             text: '# ' + v,
         })))
@@ -66,13 +73,13 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
     public override add(value: string | LineInfo | FileAbstract<D>) {
         if (value instanceof FileAbstract) {
             value.context = this.context
-            this.#list.push(value.toJson())
+            this.list.push(value.toJson())
             Pack.cacheFile(value)
         } else {
-            this.#list.push(
-                typeof value === 'string'
-                    ? { type: getFileInfoType(value), text: value }
-                    : value as LineInfo
+            this.list.push(
+                value instanceof LineInfo
+                    ? value as LineInfo
+                    : new LineInfo(getFileInfoType(value), value)
             )
         }
     }
@@ -118,11 +125,11 @@ export class File<D extends DataObject = {}> extends FileAbstract<D> {
     
     public override toJson(): LineInfo {
         this.load()
-        return {
-            type: 'file',
-            text: 'function ' + this.toString(),
-            extra: this.list,
-        }
+        return new LineInfo(
+            'file',
+            'function ' + this.toString(),
+            this.list
+        )
     }
 
     public toString() {

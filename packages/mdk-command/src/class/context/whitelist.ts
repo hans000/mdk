@@ -13,6 +13,7 @@ export class WhiteList extends ContextAbstract {
      */
     public add(player: Selector) {
         this.context.add(whitelist.add(player))
+        return this
     }
 
     /**
@@ -21,21 +22,26 @@ export class WhiteList extends ContextAbstract {
      */
     public remove(player: Selector) {
         this.context.add(whitelist.remove(player))
+        return this
     }
 
     public list() {
         this.context.add(whitelist.list())
+        return this
     }
 
     public off() {
         this.context.add(whitelist.off())
+        return this
     }
     
     public on() {
         this.context.add(whitelist.on())
+        return this
     }
     
     public reload() {
         this.context.add(whitelist.reload())
+        return this
     }
 }

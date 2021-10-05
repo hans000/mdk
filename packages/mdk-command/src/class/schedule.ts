@@ -16,6 +16,7 @@ export class Schedule extends ContextAbstract {
      */
     public functionName(functionName: string | File, time: string, mode: ScheduleMode = 'append') {
         this.context.add(schedule.functionName(functionName.toString(), time, mode))
+        return this
     }
     
     /**
@@ -24,5 +25,6 @@ export class Schedule extends ContextAbstract {
      */
     public clear(functionName: string | File) {
         this.context.add(schedule.clear(functionName.toString()))
+        return this
     }
 }

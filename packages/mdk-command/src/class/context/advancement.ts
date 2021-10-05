@@ -1,6 +1,40 @@
-import { File } from 'mdk-core'
-import { Selector } from 'mdk-core'
-import { ContextAbstract } from "mdk-core";
+import { File, Selector, ContextAbstract } from 'mdk-core'
+
+type ActionLogicFn = (context: ActionLogic) => Advancement
+
+class ActionLogic {
+    readonly #context: Advancement
+    readonly #type: 'grant' | 'revoke'
+
+    constructor(context: Advancement, type: 'grant' | 'revoke') {
+        this.#context = context
+        this.#type = type
+    }
+    public eveything(selector: Selector) {
+        this.#context.context.add(`advancement ${this.#type} ${selector.toString()} everything`)
+        return this.#context
+    }
+
+    public only(selector: Selector, advancement: string, criterion?: string) {
+        this.#context.context.add(`advancement ${this.#type} ${selector.toString()} only ${advancement}${criterion ? ' ' + criterion : ''}`)
+        return this.#context
+    }
+
+    public from(selector: Selector, advancement: string) {
+        this.#context.context.add(`advancement ${this.#type} ${selector.toString()} from ${advancement}`)
+        return this.#context
+    }
+    
+    public through(selector: Selector, advancement: string) {
+        this.#context.context.add( `advancement ${this.#type} ${selector.toString()} througth ${advancement}`)
+        return this.#context
+    }
+    
+    public until(selector: Selector, advancement: string) {
+        this.#context.context.add( `advancement ${this.#type} ${selector.toString()} until ${advancement}`)
+        return this.#context
+    }
+}
 
 export class Advancement extends ContextAbstract {
 
@@ -8,41 +42,11 @@ export class Advancement extends ContextAbstract {
         super(context)
     }
 
-    public grant(selector: Selector) {
-        return this.createAction(selector, 'grant')
+    public grant(fn: ActionLogicFn) {
+        return fn(new ActionLogic(this, 'grant'))
     }
 
-    public revoke(selector: Selector) {
-        return this.createAction(selector, 'revoke')
-    }
-
-    private createAction(selector: Selector, type: 'grant' | 'revoke') {
-        return {
-            eveything: () => this.eveything(selector, type),
-            only: (advancement: string, criterion?: string) => this.only(selector, type, advancement, criterion),
-            from: (advancement: string) => this.from(selector, type, advancement),
-            through: (advancement: string) => this.through(selector, type, advancement),
-            until: (advancement: string) => this.until(selector, type, advancement),
-        }
-    }
-
-    private eveything(selector: Selector, type: 'grant' | 'revoke') {
-        this.context.add(`advancement ${type} ${selector.toString()} everything`)
-    }
-
-    private only(selector: Selector, type: 'grant' | 'revoke', advancement: string, criterion?: string) {
-        this.context.add(`advancement ${type} ${selector.toString()} only ${advancement}${criterion ? ' ' + criterion : ''}`)
-    }
-
-    private from(selector: Selector, type: 'grant' | 'revoke', advancement: string) {
-        this.context.add(`advancement ${type} ${selector.toString()} from ${advancement}`)
-    }
-    
-    private through(selector: Selector, type: 'grant' | 'revoke', advancement: string) {
-        this.context.add( `advancement ${type} ${selector.toString()} througth ${advancement}`)
-    }
-    
-    private until(selector: Selector, type: 'grant' | 'revoke', advancement: string) {
-        this.context.add( `advancement ${type} ${selector.toString()} until ${advancement}`)
+    public revoke(fn: ActionLogicFn) {
+        return fn(new ActionLogic(this, 'revoke'))
     }
 }

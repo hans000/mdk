@@ -1,6 +1,4 @@
-import { File } from 'mdk-core'
-import { Selector } from 'mdk-core'
-import { ContextAbstract } from "mdk-core";
+import { ContextAbstract, File, Selector } from "mdk-core"
 
 export class Loot extends ContextAbstract {
 
@@ -9,53 +7,53 @@ export class Loot extends ContextAbstract {
     }
 
     public spawn(location: string) {
-        return new Source(this.context, `loot spawn ${location}`)
+        return new Source(this, `loot spawn ${location}`)
     }
 
     public replaceEntity(target: Selector | string, slot: string, count?: number) {
-        return new Source(this.context, `loot replace entity ${target.toString()} ${slot}${count ? ' ' + count : ''}`)
+        return new Source(this, `loot replace entity ${target.toString()} ${slot}${count ? ' ' + count : ''}`)
     }
 
     public replaceBlock(location: string, slot: string, count?: number) {
-        return new Source(this.context, `loot replace block ${location} ${slot}${count ? ' ' + count : ''}`)
+        return new Source(this, `loot replace block ${location} ${slot}${count ? ' ' + count : ''}`)
     }
 
     public give(target: Selector | string) {
-        return new Source(this.context, `loot give ${target.toString()}`)
+        return new Source(this, `loot give ${target.toString()}`)
     }
 
     public insert(location: string) {
-        return new Source(this.context, `loot insert ${location}`)
+        return new Source(this, `loot insert ${location}`)
     }
 
 }
 
 class Source {
-    private text = ''
-    readonly #context: File
+    readonly #text: string
+    readonly #context: Loot
 
-    constructor(context: File, text: string) {
-        this.text = text
+    constructor(context: Loot, text: string) {
         this.#context = context
+        this.#text = text
     }
 
     fish(loottable: string, location: string, tool?: string) {
-        this.#context.add(`${this.text} fish ${loottable} ${location}${tool ? ' ' + tool : ''}`)
-        return this
+        this.#context.context.add(`${this.#text} fish ${loottable} ${location}${tool ? ' ' + tool : ''}`)
+        return this.#context
     }
 
     loot(loottable: string) {
-        this.#context.add(`${this.text} loot ${loottable}`)
-        return this
+        this.#context.context.add(`${this.#text} loot ${loottable}`)
+        return this.#context
     }
 
     kill(target: Selector) {
-        this.#context.add(`${this.text} kill ${target.toString()}`)
-        return this
+        this.#context.context.add(`${this.#text} kill ${target.toString()}`)
+        return this.#context
     }
 
     mine(location: string, tool?: string) {
-        this.#context.add(`${this.text} mine ${location}${tool ? ' ' + tool : ''}`)
-        return this
+        this.#context.context.add(`${this.#text} mine ${location}${tool ? ' ' + tool : ''}`)
+        return this.#context
     }
 }

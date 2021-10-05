@@ -15,6 +15,7 @@ export class Trigger extends ContextAbstract {
      */
     public add(critera: string, value: int) {
         this.context.add(trigger.add(critera, value))
+        return this
     }
    
     /**
@@ -24,5 +25,6 @@ export class Trigger extends ContextAbstract {
      */
     public set(critera: string, value: int) {
         this.context.add(trigger.set(critera, value))
+        return this
     }
 }
