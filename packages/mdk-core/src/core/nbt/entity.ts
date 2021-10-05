@@ -1,11 +1,9 @@
 import { File } from "@core/file"
 import { NbtAbstract } from "./NbtAbstract"
 import { Entity } from 'mdk-nbt'
-import { ContainerExpection } from "@/expection"
-import { warn } from "@/expection/warning"
 import { __MDK__DEV__ } from "@dev/index"
-import { useFile } from "@core/hooks/useFile"
-import { useCommand } from 'mdk-command'
+import { warn, ContainerExpection } from "@tools/expection"
+import { useFile, useCommand } from "@/hooks"
 
 export class NbtEntity<T extends Entity> extends NbtAbstract<T> {
     constructor(nbt: T) {

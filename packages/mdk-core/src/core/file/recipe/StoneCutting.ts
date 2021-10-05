@@ -1,4 +1,4 @@
-import { DataObject } from "@typings/base";
+import { DataObject } from "@tools/typings";
 import { emit } from "../../plugin";
 import { RecipeAbstract, RecipeOptions } from "./RecipeAbstract";
 

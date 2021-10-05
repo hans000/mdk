@@ -1,9 +1,7 @@
 import Logic from "./Logic";
-import { Selector } from 'mdk-core';
+import { Selector, ContainerExpection, CommandText } from 'mdk-core';
 import { ScoreRange, Dimension, StoreOption, AnchorOption, BlockEntityState } from 'mdk-nbt';
 import StoreLogic from "./StoreLogic";
-import { CommandText } from "mdk-core"
-import { ContainerExpection } from "mdk-core/src/expection";
 import { Objective } from "@/core/objective";
 
 export default class Execute extends CommandText {

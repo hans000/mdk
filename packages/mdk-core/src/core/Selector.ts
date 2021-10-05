@@ -2,9 +2,9 @@ import { formatMCParams, formatScoreRange, GsonStringify } from "@utils/index";
 import { emit } from "@core/index";
 import { Location } from "@lib/index";
 import { ScoreRange, GameMode, EntityId, Entity } from 'mdk-nbt';
-import { ContainerExpection } from '../expection';
-import { LiteralUnion, SingleArrayResult } from "@typings/tool";
 import { Objective } from "mdk-command";
+import { ContainerExpection } from "@tools/expection";
+import { SingleArrayResult, LiteralUnion } from "@tools/typings";
 
 export function selector(): Selector
 export function selector(name: string): Selector

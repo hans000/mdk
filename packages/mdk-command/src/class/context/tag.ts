@@ -1,6 +1,5 @@
-import { File, Selector, ContextAbstract } from 'mdk-core'
+import { File, Selector, ContextAbstract, ContainerExpection } from 'mdk-core'
 import { tag } from "../../function";
-import { ContainerExpection } from "mdk-core/src/expection";
 
 const registTags = new Set()
 

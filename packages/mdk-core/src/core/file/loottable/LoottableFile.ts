@@ -1,10 +1,8 @@
 import path from '@utils/path';
 import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { LiteralFuncType, LiteralUnion } from '@typings/tool';
-import { DataObject } from '@typings/base';
-import { File } from '@core/index';
-import { popFile, usePack } from '@core/hooks';
+import { popFile, usePack } from '@/hooks';
+import { DataObject, LiteralUnion } from '@tools/typings';
 
 export interface LoottableOptions<D extends DataObject = {}> extends FileAbstractOptions<D> {
     /** tag文件，仅用于.mcfunction，例如：tick load等 */

@@ -1,5 +1,5 @@
-import { FieldExpection } from "@/expection";
 import { isValidPathName } from "@utils/rules";
+import { FieldExpection } from ".";
 
 export function validPathName(filename: string) {
     if (!isValidPathName(filename)) {

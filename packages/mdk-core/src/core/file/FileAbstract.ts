@@ -1,14 +1,13 @@
 import { File } from "@core/index";
-import { pushFile, setPack, usePack } from "../hooks";
-import { ToStringAbstract, LineInfo } from '@model/index'
+import { pushFile, setPack, usePack } from "@/hooks";
 import { emit } from "../plugin";
 import { __MDK__DEV__ } from "@dev/index";
 import { validPathName } from "@tools/valid";
-import { LiteralFuncType } from "@typings/tool";
 import path from "@utils/path";
-import { DataObject } from "@typings/base";
 import { Pack } from "@core/Pack";
-import { ContainerExpection } from "@/expection";
+import { ContainerExpection } from "@tools/expection";
+import { ToStringAbstract, LineInfo } from "@tools/model";
+import { DataObject, LiteralFuncType } from "@tools/typings";
 
 export type FileType =
     | 'functions'

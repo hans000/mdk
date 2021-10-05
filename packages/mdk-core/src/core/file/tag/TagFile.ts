@@ -2,8 +2,8 @@ import { File } from '..'
 import path from '@utils/path';
 import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { DataObject } from '@typings/base';
-import { popFile, usePack } from '@core/hooks';
+import { DataObject } from "@tools/typings";
+import { popFile, usePack } from '@/hooks';
 
 export type TagFileType =
     | 'blocks' 

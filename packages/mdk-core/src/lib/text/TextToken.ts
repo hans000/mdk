@@ -1,4 +1,4 @@
-import { LiteralUnion } from "@typings/tool"
+import { LiteralUnion } from "@tools/typings"
 import { toHump } from "@utils/format"
 import { ColorType } from "mdk-nbt"
 import { ClickEventType } from "./ClickEvent"

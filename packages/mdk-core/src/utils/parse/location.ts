@@ -1,4 +1,4 @@
-import { ArgumentExpection } from "../../expection";
+import { ArgumentExpection } from "@tools/expection";
 
 /**
  * location解析器

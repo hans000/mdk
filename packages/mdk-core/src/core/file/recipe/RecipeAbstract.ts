@@ -1,12 +1,11 @@
 import { ItemId } from "mdk-nbt"
-import { FieldExpection } from "../../../expection"
 import { int } from 'mdk-nbt'
 import path from "@utils/path"
 import { emit } from "../../plugin"
 import { FileAbstract, FileAbstractOptions, FileInfo } from "../FileAbstract"
-import { LiteralFuncType } from "@typings/tool"
-import { DataObject } from "@typings/base"
-import { popFile, usePack } from "@core/hooks"
+import { popFile, usePack } from "@/hooks"
+import { FieldExpection } from "@tools/expection"
+import { DataObject } from "@tools/typings"
 
 export type RecipeType =
     | 'crafting_shaped'     /** 有序合成 */

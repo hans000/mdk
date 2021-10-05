@@ -1,12 +1,11 @@
 import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import path from '@utils/path';
 import { emit } from '../../plugin';
-import { LineInfo } from '@model/index';
-import { LiteralUnion } from '@typings/tool';
 import { Pack } from "@core/Pack";
-import { DataObject } from '@typings/base';
-import { FieldExpection } from '@/expection';
-import { popFile, usePack } from '@core/hooks';
+import { FieldExpection } from '@tools/expection';
+import { LineInfo } from '@tools/model';
+import { DataObject, LiteralUnion } from '@tools/typings';
+import { popFile, usePack } from '@/hooks';
 
 function getFileInfoType(value: string) {
     const prefix = value.split(' ')[0]

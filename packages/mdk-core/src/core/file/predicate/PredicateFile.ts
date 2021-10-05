@@ -1,11 +1,10 @@
-import { FieldExpection } from '../../../expection';
 import { int, float, EnchantmentId, RangeObject } from 'mdk-nbt';
 import path from '@utils/path';
 import { FileAbstract, FileAbstractOptions, FileInfo } from '../FileAbstract';
 import { emit } from '../../plugin';
-import { ObjectMap } from '@typings/tool';
-import { LoottableFile, popFile, usePack } from '@core/index';
-import { DataObject } from '@typings/base';
+import { popFile, usePack } from '@/index';
+import { FieldExpection } from '@tools/expection';
+import { DataObject, ObjectMap } from '@tools/typings';
 
 type EntityTargetType = 'this' | 'killer' | 'killer_player'
 export interface IPredicateItem {

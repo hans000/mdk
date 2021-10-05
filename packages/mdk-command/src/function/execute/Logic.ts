@@ -1,7 +1,6 @@
-import { formatMCParams, formatScoreRange } from 'mdk-core';
+import { ArgumentExpection, formatMCParams, formatScoreRange } from 'mdk-core';
 import { Selector } from 'mdk-core';
 import { BlockEntityState, ScoreRange } from 'mdk-nbt';
-import { ArgumentExpection } from 'mdk-core/src/expection';
 import Execute from './Execute';
 
 export default class Logic {

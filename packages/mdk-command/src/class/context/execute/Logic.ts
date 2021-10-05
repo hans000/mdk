@@ -1,6 +1,6 @@
 import { formatMCParams, formatScoreRange, OperationType, Selector } from 'mdk-core';
 import { BlockEntityState, ScoreRange } from 'mdk-nbt';
-import { BlockItemId } from '../../../../../mdk-nbt/dist/item/__';
+import { BlockItemId } from 'mdk-nbt/dist/item/__';
 import { Execute } from './Execute';
 
 export type ConditionFn = (context: Logic) => Execute

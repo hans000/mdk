@@ -1,4 +1,4 @@
-import { ArgumentExpection } from "@/expection"
+import { ArgumentExpection } from "@tools/expection"
 
 function isValidVersion(version: string) {
     return /^\d\.\d{1,2}(\.\d{1,2})?$/.test(version)

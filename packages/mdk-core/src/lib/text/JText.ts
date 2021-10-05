@@ -1,4 +1,4 @@
-import { LiteralType } from "@typings/tool"
+import { LiteralType } from "@tools/typings"
 import { escape } from "@utils/index"
 import { TextToken } from "./TextToken"
 

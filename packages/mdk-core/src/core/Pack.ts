@@ -1,13 +1,13 @@
 import { isValidSpacename } from "../utils/rules"
 import { versionCompare } from "../utils/version"
 import { getRandomStr } from "../utils"
-import { ContainerExpection, FieldExpection } from "../expection"
 import { File } from "./file/function/File"
 import { FileInfo, FileAbstract } from "./file/FileAbstract"
-import { setPack } from "./hooks"
 import { TextToken } from "@lib/text"
 import { TagFile } from "."
 import path from "@utils/path"
+import { ContainerExpection, FieldExpection } from "@tools/expection"
+import { setPack } from "@/hooks"
 
 export interface PackOptions {
     /** 包名 */
